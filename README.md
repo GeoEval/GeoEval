@@ -15,12 +15,30 @@ This project comprises a systematic evaluation of Geometry Problem Solving metho
    
 2. [Model Evaluation](#model-evaluation)
 
+
 ## Data Preparation
 
 ### Download Initial Dataset
 
-To get started with this project, you need to download the initial dataset from Google Cloud Drive[Dataset Collection](https://drive.google.com/file/d/13xWRtt_C4jpA3F8NZ3deR089I3s17_WK/view?usp=drive_link). Follow the steps below to download the dataset:
+To get started with this project, you need to download the initial dataset Contrain Geometry3K, PGPS9K, UniGeo from Google Cloud Drive[Dataset Collection](https://drive.google.com/file/d/13xWRtt_C4jpA3F8NZ3deR089I3s17_WK/view?usp=drive_link). GeoQA+ can be download from this dataset [link](https://drive.google.com/file/d/1KL4_wIzr3p8XSKMkkLgYcYwCbb0TzZ9O/view?usp=drive_link)
 
+```
+ICL_Dataset
+├── GeoQA
+│   ├── GeoQA3
+│   └── ...
+├── GeoQA_Plus
+│   ├── *.pk
+├── PGPS9K_all
+│   ├── Geometry3K
+│   │   ├── train.json
+│   │   └── test.json
+│   ├── PGPS9K
+│   │   ├── train.json
+│   │   └── test.json
+└── UniGeo
+    ├── *.pk
+```
 
 The subsequent preprocessing steps need to be addressed, and below is the dataset provided in preprocessed [JSON format](https://drive.google.com/file/d/17mGIGKv0PzBvU9a_cEOvBOIblFgdytJW/view?usp=drive_link).
 
