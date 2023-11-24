@@ -46,7 +46,7 @@ bash pgps9k/ext_result.sh
 bash pgps9k/ext_result
 ```
 
-## Caculation Results
+## Caculation Prolem Results(Pure-Text Large Laugage Model)
 
 ### Mode with Multiple-Choice Questions Hint.
 | Model Name             | Geometry3K | PGPS9K | UniGeo Caculation(GeoQA English) |
@@ -125,6 +125,21 @@ bash pgps9k/ext_result
 | MetaMath-Mistral-7B    | ---        | ---    | ---                             |
 | MetaMath-Llemma-7B     | ---        | ---    | ---                             |
 | MetaMath-7B-V1.0       | ---        | ---    | ---                             |
+
+
+## Caculation Prolem Results(Visual-Text Large Laugage Model)
+| Model Name          | Geometry3K | PGPS9K | UniGeo Caculation(GeoQA English) |
+|:-------------------:|:----------:|:------:|:-------------------------------:|
+| visualglm-6b        | ---        | ---    | ---                             |
+| llava-v1.5-7b       | ---        | ---    | ---                             |
+| llama-adapter-7b    | ---        | ---    | ---                             |
+| Qwen-VL             | ---        | ---    | ---                             |
+| mPLUG-Owl           | ---        | ---    | ---                             |
+| InstructBLIP        | ---        | ---    | ---                             |
+| CogVLM              | ---        | ---    | ---                             |
+| MiniGPT-v2          | ---        | ---    | ---                             |
+
+
 
 
 
