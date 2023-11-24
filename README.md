@@ -19,7 +19,10 @@ This project comprises a systematic evaluation of Geometry Problem Solving metho
 
 ### Download Initial Dataset
 
-To get started with this project, you need to download the initial dataset from [Google Cloud Drive](https://drive.google.com/file/d/13xWRtt_C4jpA3F8NZ3deR089I3s17_WK/view?usp=drive_link). Follow the steps below to download the dataset:
+To get started with this project, you need to download the initial dataset from Google Cloud Drive[Dataset Collection](https://drive.google.com/file/d/13xWRtt_C4jpA3F8NZ3deR089I3s17_WK/view?usp=drive_link). Follow the steps below to download the dataset:
+
+
+The subsequent preprocessing steps need to be addressed, and below is the dataset provided in preprocessed [JSON format](https://drive.google.com/file/d/17mGIGKv0PzBvU9a_cEOvBOIblFgdytJW/view?usp=drive_link).
 
 
 ### Preprocess Data
