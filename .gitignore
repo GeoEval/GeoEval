@@ -1,0 +1,3 @@
+# 忽略所有JSON文件
+*.json
+ICL_dataset/*
