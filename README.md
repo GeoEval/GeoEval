@@ -37,19 +37,29 @@ python tool\process_unigeo_cat_prove.py
 Run the scripts under sh_files/{dataset} to achieve inference responsiveness, result extraction, and metric calculation for large models.
 
 ```bash
+# PGPS9K Pipeline Example
 bash pgps9k/get_response.sh
 bash pgps9k/ext_result.sh
 bash pgps9k/ext_result
 ```
 
-### Results
+## Caculation Results
+
+### Mode with Multiple-Choice Questions Hint.
+| Model Name      | Geometry3K | PGPS9K | UniGeo Caculation(GeoQA English) |
+|:------------------:|:------------------:|:------------------:|:------------------:|
+| GPT3.5-turbo  | 0.55  |  ---   | 0.34             | ---           |
+| ---         | ---            | ---            |  ---            |
+| ---        | ---            | ---            | ---            |
+
+### Mode Without Multiple-Choice Questions Hint.
+| Model Name      | Geometry3K | PGPS9K | UniGeo Caculation(GeoQA English) |
+|:------------------:|:------------------:|:------------------:|:------------------:|
+| GPT3.5-turbo  | --- |  ---   | ---    | ---  |
+| ---         | ---            | ---            |  ---            |
+| ---        | ---            | ---            | ---            | 
 
 
-| Model Name      | Numeric Accuracy |
-|-----------------|------------------|
-| GPT3.5-turbo         | 0.95             |
-| ---         | ---            |
-| ---        | ---            |
 
 
 
