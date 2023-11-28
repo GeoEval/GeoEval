@@ -2,8 +2,8 @@ import requests
 import json
 
 def get_chat_reponse(question):
-    api_key = ''#
-    url = ""
+    api_key = 'PX2bgbqP2MnUY3W8tqbVrxnJ7YwKeIWI'#
+    url = "https://ai-proxy.ksord.com/wps.openai.azure.com/openai/deployments/35/chat/completions?api-version=2023-03-15-preview"
     headers = {
         "api-key": api_key,
         "Content-Type": "application/json"
