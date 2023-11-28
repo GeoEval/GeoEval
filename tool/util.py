@@ -1,9 +1,32 @@
 import os
 import json
 import pickle
+from prompt.dataset_prompt import GeoQA_PROMPT_DICT, Geometry3K_PROMPT_DICT, UniGeo_Cat_Prompt_DICT, UniGeo_Prove_Prompt_DICT
+from prompt.translate_prompt import trans_prompt
+from gpt_tool import get_chat_reponse
 
-from tool.prompt.dataset_prompt import GeoQA_PROMPT_DICT, Geometry3K_PROMPT_DICT, UniGeo_Cat_Prompt_DICT, UniGeo_Prove_Prompt_DICT
+def translate_geo_plus(dataset_path, output_trans_path):
 
+    def create_test_prompt(demo_prompt, context):
+        demo_prompt = demo_prompt.strip()
+        full_prompt = f"{demo_prompt}\n\n{context}\n\nThe Translated Result is: "
+        return full_prompt
+
+    data = read_json(dataset_path)
+    new_dict = {}
+    for timu_id, context in data.items():
+        new_dict[timu_id] = get_chat_reponse(create_test_prompt(trans_prompt, context))
+    
+    save_json(new_dict, output_trans_path)
+
+def process_geoqa_plus(file_path, output_file_path):
+    timu_dict = {}
+    with open(file_path, 'rb') as file:
+        data = pickle.load(file)
+        for test_id, test_data in enumerate(data):
+            timu_dict[test_data['id']] = GeoQA_PROMPT_DICT["prompt_with_choice"].format_map(dict(subject=test_data["subject"], choices=test_data["choices"]))
+            # 处理 JSON 数据的代码
+    save_json(timu_dict, output_file_path)
 
 def process_geoqa_pk_file(file_path, output_file_path='ICL_dataset/GeoQA/LLM_eval/eval_input.json'):
     # 在这里添加处理 JSON 文件的代码
@@ -52,7 +75,6 @@ def read_json(file_path):
     return data
 
 def save_json(data, output_file):
-    import pdb; pdb.set_trace()
     # get the dir path
     directory = os.path.dirname(output_file)
     # if the dir path don't exit, mkdir the dir

@@ -88,7 +88,7 @@ file_paths = [
     "/home/kas/checkpoint/LayoutNUWA/download_llama/liuhaotian/llava-v1.5-7b",
     "/home/kas/checkpoint/LayoutNUWA/download_llama/lmsys/vicuna-13b-v1.5",
     "/home/kas/checkpoint/LayoutNUWA/download_llama/lmsys/vicuna-7b-v1.5",
-    "/home/kas/checkpoint/LayoutNUWA/download_llama/meta-llama/Llama-2-7b-hf",
+    "/home/kas/checkpoint/LayoutNUWA/download_llama/meta-llama/Llama-2-7b/hf",
     "/home/kas/checkpoint/LayoutNUWA/download_llama/meta-math/MetaMath-7B-V1.0",
     "/home/kas/checkpoint/LayoutNUWA/download_llama/meta-math/MetaMath-Llemma-7B",
     "/home/kas/checkpoint/LayoutNUWA/download_llama/meta-math/MetaMath-Mistral-7B",
@@ -97,12 +97,10 @@ file_paths = [
 
 general_models_dict = {model: '' for model in general_models}
 math_models_dict = {model: '' for model in math_models}
-vlm_model_dict = {model: '' for model in vlm_model}
 
 model_dict = {}
 model_dict.update(general_models_dict)
 model_dict.update(math_models_dict)
-model_dict.update(vlm_model_dict)
 
 
 for model_name in model_dict:
