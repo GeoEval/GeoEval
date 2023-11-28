@@ -22,6 +22,7 @@ This project comprises a systematic evaluation of Geometry Problem Solving metho
 
 To get started with this project, you need to download the initial dataset Contrain Geometry3K, PGPS9K, UniGeo from Google Cloud Drive[Dataset Collection](https://drive.google.com/file/d/13xWRtt_C4jpA3F8NZ3deR089I3s17_WK/view?usp=drive_link). GeoQA+ can be download from this dataset [link](https://drive.google.com/file/d/1KL4_wIzr3p8XSKMkkLgYcYwCbb0TzZ9O/view?usp=drive_link)
 
+In addition to that, there are also some text-based datasets, including [MathQA](https://drive.google.com/file/d/11E3ALsQxEtOPVtjKxrAwN99MIhtWl4No/view?usp=drive_link), [GeometryQA](https://github.com/DoubleBite/Sequence-to-General-tree/blob/master/data/geometryQA/geometry1398.json), and the [MATH](https://drive.google.com/file/d/1t4X03JIVXl6X_GNXl8R70W_rExJ_m_xD/view?usp=sharing) dataset. These questions require a thorough understanding of geometric concepts and knowledge to solve.
 ```
 ICL_Dataset
 ├── GeoQA
@@ -130,9 +131,8 @@ bash pgps9k/ext_result
 | StarCoder-3b           | ---        | ---    | ---                             |
 | StarCoder-7b           | ---        | ---    | ---                             |
 | StarCoder-15b          | ---        | ---    | ---                             |
-| CodeGen-2b             | ---        | ---    | ---                             |
-| CodeGen-6b             | ---        | ---    | ---                             |
-| CodeGen-15b            | ---        | ---    | ---                             |
+| CodeGen2-3.7b             | ---        | ---    | ---                             |
+| CodeGen2-7b             | ---        | ---    | ---                             |
 | **Math Models**        |            |        |                                 |
 | WizardMath-7B-V1.0     | ---        | ---    | ---                             |
 | WizardMath-13B-V1.0    | ---        | ---    | ---                             |
@@ -155,7 +155,6 @@ bash pgps9k/ext_result
 | mPLUG-Owl           | ---        | ---    | ---                             |
 | InstructBLIP        | ---        | ---    | ---                             |
 | CogVLM              | ---        | ---    | ---                             |
-| MiniGPT-v2          | ---        | ---    | ---                             |
 
 
 
