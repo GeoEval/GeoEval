@@ -44,7 +44,8 @@ UniGeo_Cat_Prompt_DICT = {
     "prompt_with_choice": (
         "You are a problem-solving bot, and now I ask you to solve a geometry problem. The problem is as follows: \n\n"
         "Provide the answer to the question and a detailed reasoning process. \n\n"
-        "The question is: \n{English_problem}\n\nThe Choices are::\n{choice_nums}\n\nThe Answer and the Reason Process is:"
+        "The question is: \n{English_problem}\n\nThe Choices are::\n{choice_nums}, The N_0, N_1, N_2, etc. are the referent variable corresponding to {numbers}\n\n"
+        "The Answer and the Reason Process is:"
     ),
     "prompt_without_choice": (
         "You are a problem-solving bot, and now I ask you to solve a geometry problem. The problem is as follows: \n\n"
