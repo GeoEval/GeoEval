@@ -4,27 +4,29 @@ import pickle
 from prompt.dataset_prompt import GeoQA_PROMPT_DICT, Geometry3K_PROMPT_DICT, UniGeo_Cat_Prompt_DICT, UniGeo_Prove_Prompt_DICT
 from prompt.translate_prompt import trans_prompt
 from gpt_tool import get_chat_reponse
+from tqdm import tqdm
 
-def translate_geo_plus(dataset_path, output_trans_path):
-
+def translate_timu(input_string):
     def create_test_prompt(demo_prompt, context):
         demo_prompt = demo_prompt.strip()
         full_prompt = f"{demo_prompt}\n\n{context}\n\nThe Translated Result is: "
         return full_prompt
 
-    data = read_json(dataset_path)
-    new_dict = {}
-    for timu_id, context in data.items():
-        new_dict[timu_id] = get_chat_reponse(create_test_prompt(trans_prompt, context))
-    
-    save_json(new_dict, output_trans_path)
+    output_string = None
+    try:
+        output_string = get_chat_reponse(create_test_prompt(trans_prompt, input_string))
+    except:
+        output_string = "No Reponse from GPT3.5"
+
+    return output_string
 
 def process_geoqa_plus(file_path, output_file_path):
-    timu_dict = {}
+    timu_dict = {}    
     with open(file_path, 'rb') as file:
         data = pickle.load(file)
-        for test_id, test_data in enumerate(data):
-            timu_dict[test_data['id']] = GeoQA_PROMPT_DICT["prompt_with_choice"].format_map(dict(subject=test_data["subject"], choices=test_data["choices"]))
+        for test_id, test_data in tqdm(enumerate(data)):
+            subject = translate_timu(test_data["subject"])
+            timu_dict[test_data['id']] = GeoQA_PROMPT_DICT["prompt_with_choice"].format_map(dict(subject=subject, choices=test_data["choices"]))
             # 处理 JSON 数据的代码
     save_json(timu_dict, output_file_path)
 
@@ -55,7 +57,7 @@ def process_unigeo_cat(file_path, output_file_path):
     with open(file_path, 'rb') as file:
         data = pickle.load(file)
         for test_id, test_data in enumerate(data):
-            timu_dict[test_data['id']] = UniGeo_Cat_Prompt_DICT["prompt_with_choice"].format_map(dict(English_problem=test_data["English_problem"], choice_nums=test_data["choice_nums"]))
+            timu_dict[test_data['id']] = UniGeo_Cat_Prompt_DICT["prompt_with_choice"].format_map(dict(English_problem=test_data["English_problem"], choice_nums=test_data["choice_nums"], numbers=test_data["numbers"]))
 
     save_json(timu_dict, output_file_path)
 
@@ -63,7 +65,6 @@ def process_unigeo_prove(file_path, output_file_path):
     timu_dict = {}
     with open(file_path, 'rb') as file:
         data = pickle.load(file)
-        import pdb; pdb.set_trace()
         for test_id, test_data in enumerate(data):
             timu_dict[test_data['id']] = UniGeo_Prove_Prompt_DICT["prompt_prove"].format_map(dict(statement=test_data["statement"], question=test_data["question"]))
     
