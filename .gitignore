@@ -3,3 +3,7 @@
 ICL_dataset/*
 !ICL_DATASET/*.md
 tool\gpt_tool.py
+
+# @Jiaxin: ignore the following directories and files
+datas/
+.DS_Store
