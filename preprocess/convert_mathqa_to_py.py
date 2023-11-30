@@ -2,7 +2,7 @@
 # Author: Jiaxin
 # Date: Nov-30-2023
 
-"""This file is mainly from:
+"""Convert GeometryQA to Python code by the MathQA-Python, this file is mainly from:
     https://github.com/google/trax/blob/master/trax/examples/MathQA_Python_generation_notebook.ipynb
 
     Install following packages first:
