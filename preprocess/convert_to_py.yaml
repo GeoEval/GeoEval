@@ -1,0 +1,3 @@
+MathQA:
+  data_dir: "datas/MathQA"  # relative path is fine, will process to the absolute path in the code dynamically
+  save_dir: "datas/MathQA-Python"
