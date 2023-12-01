@@ -1,11 +1,19 @@
-def get_opensource_llm_reponse(question, model, tokenizer):
-    inputs = tokenizer(question, return_tensors='pt')
-    inputs = inputs.to('cuda')
-    pred = model.generate(**inputs,
-                          max_new_tokens=1024,
-                          do_sample=True,
-                          top_k=50,
-                          top_p=0.5,
-                          num_return_sequences=1)
-    return_text = tokenizer.decode(pred.cpu()[0], skip_special_tokens=True)[len(question):]
-    return return_text
+import torch
+device = "cuda" if torch.cuda.is_available() else "cpu"
+
+def get_opensource_llm_reponse(data_loader, model, tokenizer):
+    predictions = {}
+    for feature in data_loader:
+        inputs = feature["input_ids"].to(device)
+        # FIXME: since evaluation, we only consider batch_size=1, however, following [0] hard code tends to cause bug.
+        o_len = feature["input_len"][0]
+        pred = model.generate(inputs,
+                        max_new_tokens=760,
+                        do_sample=True,
+                        top_k=50,
+                        top_p=0.5,
+                        num_return_sequences=1)
+        return_text = tokenizer.decode(pred.cpu()[0], skip_special_tokens=True)[o_len:]
+        return_text_all = tokenizer.decode(pred.cpu()[0], skip_special_tokens=True)
+        predictions[feature["id"][0]] = return_text
+    return predictions
