@@ -7,3 +7,4 @@ tool\gpt_tool.py
 # @Jiaxin: ignore the following directories and files
 datas/
 .DS_Store
+__pycache__

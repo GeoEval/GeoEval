@@ -1,9 +1,11 @@
 import os
 import json
 import pickle
-from prompt.dataset_prompt import GeoQA_PROMPT_DICT, Geometry3K_PROMPT_DICT, UniGeo_Cat_Prompt_DICT, UniGeo_Prove_Prompt_DICT
-from prompt.translate_prompt import trans_prompt
-from gpt_tool import get_chat_reponse
+import yaml
+import codecs
+from .prompt.dataset_prompt import GeoQA_PROMPT_DICT, Geometry3K_PROMPT_DICT, UniGeo_Cat_Prompt_DICT, UniGeo_Prove_Prompt_DICT
+from .prompt.translate_prompt import trans_prompt
+from .gpt_tool import get_chat_reponse
 from tqdm import tqdm
 
 def translate_timu(input_string):
@@ -89,3 +91,9 @@ def read_pickle(file_path):
     with open(file_path, 'rb') as file:
         data = pickle.load(file)
     return data
+
+def read_yaml(yaml_path: str) -> dict:
+    # @Jiaxin: this file is used for loading configurations from yaml.
+    with codecs.open(yaml_path, "r", "utf-8") as file:
+        config = yaml.safe_load(file)
+    return config
