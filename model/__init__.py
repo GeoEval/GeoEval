@@ -1,3 +1,1 @@
-def create_model_with_tokenizer(args):
-    model, tokenizer = None
-    return model, tokenizer
+from .casual_lm_model import create_model_tokenizer, create_casuallm_model_tokenizer
