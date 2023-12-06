@@ -10,6 +10,7 @@ from argparse import ArgumentParser
 from transformers import AutoTokenizer, AutoModel, AutoConfig
 from tqdm import tqdm
 from .util import read_json
+from .prompt import clean_format
 
 def load_tokenizer(path_or_name: str, from_local: bool = False) -> AutoTokenizer:
     if from_local:
@@ -30,11 +31,14 @@ def preprocess(tokenizer: AutoTokenizer,
 def read_jsonl(path: str, max_seq_length: int, tokenizer: AutoTokenizer, args: ArgumentParser) -> dict:    
     datas = read_json(path)
     for id_, example in datas.items():
-        feature = preprocess(tokenizer, max_seq_length, example)
-        if feature == None:
-            continue
-        feature["id"] = id_
-        yield feature
+        print(clean_format(example))
+        input()
+        
+        # feature = preprocess(tokenizer, max_seq_length, example)
+        # if feature == None:
+        #     continue
+        # feature["id"] = id_
+        # yield feature
 
 def collate_fn(features: list):
     input_ids_len = [len(feature["input_ids"]) for feature in features]
