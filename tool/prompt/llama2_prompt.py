@@ -13,6 +13,7 @@
 """
 
 import re
+from functools import wraps
 
 INST_TAG = "[INST]"
 INST_TAG_B = "[/INST]"
@@ -20,15 +21,28 @@ INST_TAG_B = "[/INST]"
 INSTRUCTION_BEGIN = "You are a problem-solving bot, and now I ask you to solve a geometry problem, please solve it. The problem is as follows:\n\n"
 INSTRUCTION_END = "\n\nThe Answer and the Reason Process is:" 
 
-OLD_FORMAT_BEGIN = r"You are a problem-solving bot, and now I ask you to solve a geometry problem. The problem is as follows:"
+OLD_FORMAT_BEGIN = r"You are a problem-solving bot, and now I ask you to solve a geometry problem. The problem is as follows: \n\nProvide the answer to the question and a detailed reasoning process. \n\nThe question is: \n"
 OLD_FORMAT_END = r"The Answer and the Reason Process is:"
 
-def clean_format(example: str):
-    """For cleaning the original format."""
-    example = re.sub(OLD_FORMAT_BEGIN, example, "")
-    example = re.sub(OLD_FORMAT_END, example, "")
-    return example.strip()
-    
+def format_type(f_type):
+    def clean_format(func):
+        """For cleaning the original format."""
+        @wraps(func)
+        def wrap_func(example: str, need_clean: bool = True):
+            if need_clean:
+                example = re.sub(OLD_FORMAT_BEGIN, "", example)
+                example = re.sub(OLD_FORMAT_END, "", example)
+            
+            if type = "llama2":
+                return convert_to_llama2_input_format(example.strip())
+            elif type == "general":
+                return convert_to_general_input_format(example.strip())
+            else:
+                raise ValueError(f"Unknown format type: {f_type}")            
+        return wrap_func
+    return clean_format
+
+@format_type("llama2")  # convert_to_llama2_input_format = format_type("llama2")(convert_to_llama2_input_format)
 def convert_to_llama2_input_format(example: str) -> str:
     """
         Input:
@@ -38,6 +52,7 @@ def convert_to_llama2_input_format(example: str) -> str:
     """
     return f"{INST_TAG} {INSTRUCTION_BEGIN} {example} {INSTRUCTION_END} {INST_TAG_B}"
 
+@format_type("general")
 def convert_to_general_input_format(example: str) -> str:
     """
         Input:
