@@ -32,13 +32,7 @@ def format_type(f_type):
             if need_clean:
                 example = re.sub(OLD_FORMAT_BEGIN, "", example)
                 example = re.sub(OLD_FORMAT_END, "", example)
-            
-            if type = "llama2":
-                return convert_to_llama2_input_format(example.strip())
-            elif type == "general":
-                return convert_to_general_input_format(example.strip())
-            else:
-                raise ValueError(f"Unknown format type: {f_type}")            
+            return func(example.strip())
         return wrap_func
     return clean_format
 
