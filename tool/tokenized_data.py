@@ -23,9 +23,9 @@ def load_config(path_or_name: str, from_local: bool = False) -> AutoConfig:
 
 def preprocess(tokenizer: AutoTokenizer, 
                max_seq_len: int, 
-               prompt: str) -> dict:
-    prompt_ids = tokenizer.encode(prompt, max_length=max_seq_len, truncation=True)
-    return {"input_ids": prompt_ids, "o_len": len(prompt)}
+               sentence: str) -> dict:
+    input_ids = tokenizer.encode(sentence, max_length=max_seq_len, truncation=True)
+    return {"input_ids": input_ids, "o_len": len(sentence)}
 
 def read_jsonl(path: str, max_seq_length: int, tokenizer: AutoTokenizer, args: ArgumentParser) -> dict:    
     datas = read_json(path)
