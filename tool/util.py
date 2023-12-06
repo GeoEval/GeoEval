@@ -77,7 +77,7 @@ def read_json(file_path):
         data = json.load(file)
     return data
 
-def save_json(data, output_file):
+def save_json(data, output_file, indent=None):
     # get the dir path
     directory = os.path.dirname(output_file)
     # if the dir path don't exit, mkdir the dir
@@ -85,7 +85,10 @@ def save_json(data, output_file):
         os.makedirs(directory)
 
     with open(output_file, 'w') as wr_file:
-        json.dump(data, wr_file)
+        if not indent:
+            json.dump(data, wr_file)
+        else:
+            json.dump(data, wr_file, indent=2)
 
 def read_pickle(file_path):
     with open(file_path, 'rb') as file:

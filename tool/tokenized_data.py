@@ -9,7 +9,9 @@ import torch
 from argparse import ArgumentParser
 from transformers import AutoTokenizer, AutoModel, AutoConfig
 from tqdm import tqdm
+from typing import Generator
 from .util import read_json
+from .prompt import convert_to_llama2_input_format, convert_to_general_input_format
 
 def load_tokenizer(path_or_name: str, from_local: bool = False) -> AutoTokenizer:
     if from_local:
@@ -23,13 +25,19 @@ def load_config(path_or_name: str, from_local: bool = False) -> AutoConfig:
 
 def preprocess(tokenizer: AutoTokenizer, 
                max_seq_len: int, 
-               prompt: str) -> dict:
-    prompt_ids = tokenizer.encode(prompt, max_length=max_seq_len, truncation=True)
-    return {"input_ids": prompt_ids, "o_len": len(prompt)}
+               sentence: str) -> dict:
+    input_ids = tokenizer.encode(sentence, max_length=max_seq_len, truncation=True)
+    return {"input_ids": input_ids, "o_len": len(sentence)}
 
-def read_jsonl(path: str, max_seq_length: int, tokenizer: AutoTokenizer, args: ArgumentParser) -> dict:    
+def read_jsonl(path: str, max_seq_length: int, tokenizer: AutoTokenizer, args: ArgumentParser) -> Generator[dict, None, None]:    
     datas = read_json(path)
     for id_, example in datas.items():
+        if args.prompt_type == "llama2":
+            example = convert_to_llama2_input_format(example)
+        elif args.prompt_type == "general":
+            example = convert_to_general_input_format(example)
+        else:
+            raise ValueError(f"Unknown prompt type: {args.prompt_type}")
         feature = preprocess(tokenizer, max_seq_length, example)
         if feature == None:
             continue

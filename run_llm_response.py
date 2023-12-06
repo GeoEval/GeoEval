@@ -51,7 +51,7 @@ def eval_opensource_model(args, dataset_path, output_json_file):
         
     answer_result = get_opensource_llm_reponse(data_loader, model, tokenizer)
 
-    save_json(answer_result, output_json_file)
+    save_json(answer_result, output_json_file, indent=2)
 
 def eval_api_model(dataset_path, output_json_file):
     data_load = read_json(dataset_path)
@@ -81,5 +81,6 @@ if __name__ == '__main__':
     now_time = datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
     output_json_file = os.path.join(output_json_dir, f"{args.dataset}_{args.model_name}_{now_time}.json")
     args.cached_dir = os.path.join(MAIN_PATH, args.cached_dir)
-    
+    os.makedirs(args.cached_dir, exist_ok=True)
+
     eval(args, dataset_path, output_json_file)

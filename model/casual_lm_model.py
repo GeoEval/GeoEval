@@ -1,7 +1,7 @@
 from transformers import AutoModelForCausalLM, AutoTokenizer
-from transformers import AutoModel
 from argparse import ArgumentParser
 import os
+from typing import Tuple
 
 # GPTNeoXForCausalLM.generate pythia-1b
 # AutoModelForCausalLM.generate CodeGen-2b StarCoder-1b
@@ -13,20 +13,20 @@ def create_casuallm_model_tokenizer(args):
     tokenizer = AutoTokenizer.from_pretrained(pretrained_model_name_or_path=args.weight_path, trust_remote_code=True)
     return model, tokenizer
 
-def create_model_tokenizer(args: ArgumentParser, from_local: bool=True) -> tuple[AutoModel, AutoTokenizer]:
+def create_model_tokenizer(args: ArgumentParser, from_local: bool=True) -> Tuple[AutoModelForCausalLM, AutoTokenizer]:
     if from_local:
         assert os.path.exists(args.weight_path), f"cannot find weight path: {args.weight_path}"
-        model = AutoModel.from_pretrained(
-            args.weight_path, load_in_8bit=args.load_in_8bit, trust_remote_code=True)
+        model = AutoModelForCausalLM.from_pretrained(
+            args.weight_path, load_in_8bit=args.load_in_8bit, device_map="auto", trust_remote_code=True).cuda()
         model.eval()
         
         tokenizer = AutoTokenizer.from_pretrained(pretrained_model_name_or_path=args.weight_path, trust_remote_code=True)
         
     else:      
-        model = AutoModel.from_pretrained(
-            args.model_name, load_in_8bit=False, trust_remote_code=True, local_files_only=False
-        )
+        model = AutoModelForCausalLM.from_pretrained(
+            args.model_name,  device_map="auto", token="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"
+        ).cuda()
         model.eval()
-        tokenizer = AutoTokenizer.from_pretrained(args.model_name, trust_remote_code=False)
+        tokenizer = AutoTokenizer.from_pretrained(args.model_name, token="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")
         
     return model, tokenizer
