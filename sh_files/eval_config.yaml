@@ -13,3 +13,4 @@ General:
   bsz: 1
   load_in_8bit: False
   from_local: True
+  prompt_type: "llama2"
