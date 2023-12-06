@@ -29,7 +29,7 @@ def preprocess(tokenizer: AutoTokenizer,
     input_ids = tokenizer.encode(sentence, max_length=max_seq_len, truncation=True)
     return {"input_ids": input_ids, "o_len": len(sentence)}
 
-def read_jsonl(path: str, max_seq_length: int, tokenizer: AutoTokenizer, args: ArgumentParser) -> Generator[dict]:    
+def read_jsonl(path: str, max_seq_length: int, tokenizer: AutoTokenizer, args: ArgumentParser) -> Generator[dict, None, None]:    
     datas = read_json(path)
     for id_, example in datas.items():
         if args.prompt_type == "llama2":
