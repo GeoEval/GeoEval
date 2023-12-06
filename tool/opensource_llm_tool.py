@@ -8,7 +8,7 @@ def get_opensource_llm_reponse(data_loader, model, tokenizer):
         # FIXME: since evaluation, we only consider batch_size=1, however, following [0] hard code tends to cause bug.
         o_len = feature["input_len"][0]
         pred = model.generate(inputs,
-                        max_new_tokens=760,
+                        max_length=1024,
                         do_sample=True,
                         top_k=50,
                         top_p=0.5,
