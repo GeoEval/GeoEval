@@ -33,26 +33,37 @@ def read_all_problems(mathqa_gen):
   problems = []
   questions = set()
   index = 0
-  while True:
-    problem = next(mathqa_gen)
-    problem_dict = {}
-    if problem[0] in questions:
-      break
-    else:
+  count = 0
+  try:
+    while True:
+      problem = next(mathqa_gen)
+      problem_dict = {}
+      # if problem[0] in questions:
+      #   continue
+      # else:
+      count +=1
+      print(count)
       problem_dict['text'] = problem[0]
       problem_dict['code'] = problem[1]
       problem_dict['dsl_code'] = problem[2]
       problem_dict['reasoning'] = problem[3].strip('\"').strip("\'")
-      problem_dict['answer'] = data.tf_inputs.execute_mathqa_program(problem[0], problem[1].split('\n'))
+      if problem[1] != 'haha':
+        problem_dict['answer'] = data.tf_inputs.execute_mathqa_program(problem[0], problem[1].split('\n'))
+      else:
+        problem_dict['answer'] = problem[6]
       problem_dict['task_id'] = index
-      np.testing.assert_almost_equal(problem_dict['answer'], data.tf_inputs.execute_mathqa_dsl_program(problem[0], [problem[2]]))
+      if problem[1] != "haha":
+        np.testing.assert_almost_equal(problem_dict['answer'], data.tf_inputs.execute_mathqa_dsl_program(problem[0], [problem[2]]))
       # we want "geometry" only
       # FIXME: (@Jiaxin) required modifying in the original Trax package, otherwise, no problem[4] returned.
+      problem_dict["options"] = problem[5]
+      problem_dict["correct_original"] = problem[6]
       if problem[4] == "geometry":
         problems.append(problem_dict)
         questions.add(problem[0])
         index += 1
-  return problems
+  except StopIteration:
+   return problems
 
 def save_to_json(data: list, path: str) -> None:
     with codecs.open(path, "w", "utf-8") as file:
