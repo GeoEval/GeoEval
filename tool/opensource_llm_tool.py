@@ -12,7 +12,8 @@ def get_opensource_llm_reponse(data_loader, model, tokenizer):
                         do_sample=True,
                         top_k=50,
                         top_p=0.5,
-                        num_return_sequences=1)
+                        num_return_sequences=1,
+                        pad_token_id=tokenizer.eos_token_id)
         return_text = tokenizer.decode(pred.cpu()[0], skip_special_tokens=True)[o_len:]
         # return_text_all = tokenizer.decode(pred.cpu()[0], skip_special_tokens=True)
         predictions[feature["id"][0]] = return_text
