@@ -1,9 +1,10 @@
 import torch
+from tqdm import tqdm
 device = "cuda" if torch.cuda.is_available() else "cpu"
 
 def get_opensource_llm_reponse(data_loader, model, tokenizer):
     predictions = {}
-    for feature in data_loader:
+    for feature in tqdm(data_loader):
         inputs = feature["input_ids"].to(device)
         # FIXME: since evaluation, we only consider batch_size=1, however, following [0] hard code tends to cause bug.
         o_len = feature["input_len"][0]
