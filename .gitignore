@@ -7,7 +7,7 @@ tool\gpt_tool.py
 # @Jiaxin: ignore the following directories and files
 datas/
 .DS_Store
-__pycache__/
+__pycache__/*
 *.arrow
 submit.sh
 *.out
