@@ -13,5 +13,6 @@ General:
   bsz: 1
   load_in_8bit: False
   from_local: True
+  merge_type: "naive"
   prompt_type: "llama2"
   sample_number: 10  # set -1 to use all data
