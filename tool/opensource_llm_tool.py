@@ -24,11 +24,18 @@ def get_opensource_llm_reponse(data_loader, model, tokenizer, sample_number):
 
         meta_data = feature["meta_data"][0]
         data_id = meta_data["dataset_id"]
-       
+
         predictions[data_id] = {
+                "Problem": meta_data["sentence"],
                 "Response": return_text,
+                "answer_value": meta_data["answer_value"],
+                "choice_list": meta_data["choice_list"],
+                "choice_id": meta_data["choice_id"],
                 }
-        predictions[data_id].update(meta_data)
         
+        for key, val in meta_data.items():
+            if key not in predictions[data_id]:
+                predictions[data_id][key] = val
+                
         count_number -=1
     return predictions
