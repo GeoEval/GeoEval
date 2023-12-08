@@ -58,7 +58,7 @@ def collate_fn(features: list):
     input_id_ = []
     input_sentence = []
     for i_len, feature in sorted(zip(input_ids_len, features), key=lambda x: -x[0]):
-        ids = feature["input_ids"]
+        ids = torch.LongTensor([feature["input_ids"]])
         id_ = feature["id"]
         o_len = feature["o_len"]
         
