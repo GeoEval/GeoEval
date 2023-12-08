@@ -72,7 +72,9 @@ class GeoEvalDataset(Dataset):
         seq_len = [len(b["input_ids"]) for b in batch]
         max_seq_len = max(seq_len)
 
-        tensor_input_ids = torch.LongTensor(bsz, max_seq_len).fill_(self.tokenizer.pad_token_id)
+        # FIXME: for llama2, there is no pad_token, since we are using bsz=1,
+        # setting 0 here doesn't influence.
+        tensor_input_ids = torch.LongTensor(bsz, max_seq_len).fill_(0)
         original_len = []
         meta_data = []
         for i in range(bsz):
