@@ -21,6 +21,7 @@ def naive_merge(diagram_description: dict, text: dict, choice_list: list) -> str
         to_merge_text = text["Num_Exp"]
     
     if choice_list != None:
+        choice_list = [choice for choice in choice_list if choice != None]
         temp = "[" + ", ".join(choice_list) + "]"
         to_merge_choice = f"{CHOICE_PREFIX} {temp}"
     
