@@ -1,5 +1,4 @@
 # 忽略所有JSON文件
-__pycache__/
 *.json
 ICL_dataset/*
 !ICL_DATASET/*.md
@@ -11,3 +10,4 @@ datas/
 *.arrow
 submit.sh
 *.out
+*.cpython-310.pyc
