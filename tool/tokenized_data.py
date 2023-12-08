@@ -48,7 +48,7 @@ def read_jsonl(path: str, max_seq_length: int, tokenizer: AutoTokenizer, args: A
             continue
         feature["id"] = id_
         yield feature
-
+        
 def collate_fn(features: list):
     input_ids_len = [len(feature["input_ids"]) for feature in features]
     
@@ -65,11 +65,12 @@ def collate_fn(features: list):
         input_len.append(o_len)
         input_id_.append(id_)
         input_sentence.append(feature["sentence"])
-        
+    
+    # [1, o_len] FIXME: only support batch_size = 1
+    input_ids = torch.LongTensor([input_ids])
     return {
         "input_ids": input_ids,
         "input_len": input_len,
         "id": input_id_,
         "input_sentence": input_sentence,
     }
-        
