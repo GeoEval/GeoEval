@@ -48,8 +48,8 @@ def eval_opensource_model(args, dataset_path, output_json_file):
         dataset = datasets.load_from_disk(args.cached_file)
     
     data_loader = DataLoader(dataset, batch_size=args.bsz, collate_fn=collate_fn)
-        
-    answer_result = get_opensource_llm_reponse(data_loader, model, tokenizer)
+    
+    answer_result = get_opensource_llm_reponse(data_loader, model, tokenizer, args.sample_number)
 
     save_json(answer_result, output_json_file, indent=2)
 

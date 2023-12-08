@@ -21,6 +21,10 @@ INST_TAG_B = "[/INST]"
 INSTRUCTION_BEGIN = "You are a problem-solving bot, and now I ask you to solve a geometry problem, please solve it. The problem is as follows:\n\n"
 INSTRUCTION_END = "\n\nThe Answer and the Reason Process is:" 
 
+EASY_BEGIN = "Please solve this math problem: "
+
+CHOICE_BEGIN = "Hint: Please answer the quesiton and provide the correct option letter, e.g., A, B, C, D, at the end"
+
 OLD_FORMAT_BEGIN = r"You are a problem-solving bot, and now I ask you to solve a geometry problem. The problem is as follows: \n\nProvide the answer to the question and a detailed reasoning process. \n\nThe question is: \n"
 OLD_FORMAT_END = r"The Answer and the Reason Process is:"
 
@@ -29,6 +33,7 @@ def format_type(f_type):
         """For cleaning the original format."""
         @wraps(func)
         def wrap_func(example: str, need_clean: bool = True):
+            print(f"Using {f_type} format")
             if need_clean:
                 example = re.sub(OLD_FORMAT_BEGIN, "", example)
                 example = re.sub(OLD_FORMAT_END, "", example)
@@ -55,3 +60,23 @@ def convert_to_general_input_format(example: str) -> str:
             ### Human: {INSTRUCTION_BEGIN}\n\n{example}.\n### Problem-solving Bot:
     """
     return f"### Human: {INSTRUCTION_BEGIN}\n\n{example}\n### Problem-solving Bot:"
+
+@format_type("easy")
+def convert_to_easy_input_format(example: str) -> str:
+    """
+        Input:
+            - example: str. example should be raw problem without any additional CoT and Instruction.
+        Output Format:
+           {EASY_BEGIN} {example}
+    """
+    return f"{EASY_BEGIN} {example} "
+
+@format_type("choice")
+def convert_to_choice_input_format(example: str) -> str:
+    """
+        Input:
+            - example: str. example should be raw problem without any additional CoT and Instruction.
+        Output Format:
+           {EASY_BEGIN} {example}
+    """
+    return f"{CHOICE_BEGIN} {example} "

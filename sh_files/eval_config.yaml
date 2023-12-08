@@ -5,7 +5,7 @@ General:
   eval_dataset_path: "LLM_eval/"    # relative directory path
   input_file: "eval_UniGeo_Cat_test.json" # only file name
   output_dir: "result" # relative dir path 
-  weight_path: "/users/gvb20207/Code_weights/llama-2-7b-hf"   # absolute path for server running
+  weight_path: "/users/gvb20207/Code_weights/llama-2-7b-chat-hf"   # absolute path for server running
   # cached_file: "/Users/knight/Code/1_PHD_CODE/GeoEval/Cached/UniGeo_bert-base-uncased"  # absolute path, the processed cache file for "input_file", if False will created later
   cached_file: False
   cached_dir: "Cached/"
@@ -14,3 +14,4 @@ General:
   load_in_8bit: False
   from_local: True
   prompt_type: "general"
+  sample_number: 30  # set -1 to use all data
