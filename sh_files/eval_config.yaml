@@ -13,5 +13,5 @@ General:
   bsz: 1
   load_in_8bit: False
   from_local: True
-  prompt_type: "general"
+  prompt_type: "easy"
   sample_number: 30  # set -1 to use all data
