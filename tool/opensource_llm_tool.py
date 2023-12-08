@@ -10,6 +10,7 @@ def get_opensource_llm_reponse(data_loader, model, tokenizer, sample_number):
             break
         inputs = feature["input_ids"].to(device)
         # FIXME: since evaluation, we only consider batch_size=1, however, following [0] hard code tends to cause bug.
+        assert inputs.size(0) == 1, print(f"Only support batch size equal to, however, get {inputs.size(0)}")
         o_len = feature["input_len"][0]
         pred = model.generate(inputs,
                         max_length=1024,
@@ -20,11 +21,14 @@ def get_opensource_llm_reponse(data_loader, model, tokenizer, sample_number):
                         pad_token_id=tokenizer.eos_token_id)
         return_text = tokenizer.decode(pred.cpu()[0], skip_special_tokens=True)[o_len:]
         # return_text_all = tokenizer.decode(pred.cpu()[0], skip_special_tokens=True)
-        predictions[feature["id"][0]] = {
-                "Problem": feature["input_sentence"][0],
+
+        meta_data = feature["meta_data"][0]
+        data_id = meta_data["dataset_id"]
+       
+        predictions[data_id] = {
                 "Response": return_text,
                 }
-        predictions[feature["id"][0]].update(feature["meta_data"][0])
+        predictions[data_id].update(meta_data)
         
         count_number -=1
     return predictions
