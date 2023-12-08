@@ -1,4 +1,4 @@
-from transformers import AutoModelForCausalLM, AutoTokenizer
+from transformers import AutoModelForCausalLM, AutoTokenizer, AutoConfig
 from argparse import ArgumentParser
 import os
 from typing import Tuple
@@ -22,11 +22,14 @@ def create_model_tokenizer(args: ArgumentParser, from_local: bool=True) -> Tuple
         
         tokenizer = AutoTokenizer.from_pretrained(pretrained_model_name_or_path=args.weight_path, trust_remote_code=True)
         
+        config = AutoConfig.from_pretrained(pretrained_model_name_or_path=args.weight_path, trust_remote_code=True)
+        
     else:      
         model = AutoModelForCausalLM.from_pretrained(
             args.model_name,  device_map="auto", token="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"
         ).cuda()
         model.eval()
         tokenizer = AutoTokenizer.from_pretrained(args.model_name, token="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")
+        config = AutoConfig.from_pretrained(args.model_name)
         
-    return model, tokenizer
+    return model, tokenizer, config
