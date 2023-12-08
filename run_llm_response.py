@@ -1,5 +1,3 @@
-import re
-import json
 from tool.gpt_tool import get_chat_reponse
 from tool.opensource_llm_tool import get_opensource_llm_reponse
 from tool.util import read_json, save_json
@@ -7,7 +5,6 @@ from model import create_model_tokenizer
 from tqdm import tqdm
 import argparse 
 import os
-import datasets
 from tool import read_yaml
 from pathlib import Path
 from argparse import Namespace
@@ -16,7 +13,7 @@ from datasets import Dataset
 from torch.utils.data import DataLoader
 MAIN_PATH = Path(__file__).absolute().parent
 
-from tool.tokenized_data import read_jsonl, collate_fn
+from tool.data_loader import GeoEvalDataset
 
 dataset_list = ['Geometry3K','PGPS9K', 'UniGeo_Cat', 'UniGeo_Prove']
 type_list = ['api_model', 'opensource_model']
@@ -32,23 +29,15 @@ def eval_opensource_model(args, dataset_path, output_json_file):
     # create model, tokenizer
     model, tokenizer = create_model_tokenizer(args, from_local=args.from_local)    
     
-    # create or load cached data
-    if not args.cached_file:
-        dataset = Dataset.from_generator(
-            lambda: read_jsonl(
-                path=dataset_path,
-                max_seq_length=args.max_seq_length,
-                tokenizer=tokenizer,
-                args=args,
-            )
-        )
-        dataset.save_to_disk(os.path.join(args.cached_dir, f"{args.dataset}_{args.model_name}"))
-    else:
-        assert os.path.exists(args.cached_file), f"cached processed data doesn't exist: {args.cached_file}"
-        dataset = datasets.load_from_disk(args.cached_file)
-    
-    data_loader = DataLoader(dataset, batch_size=args.bsz, collate_fn=collate_fn)
-    
+    dataset = GeoEvalDataset(
+        dataset_path=dataset_path,
+        max_seq_length=args.max_seq_length,
+        tokenizer=tokenizer,
+        args=args,
+    )
+        
+    data_loader = DataLoader(dataset, batch_size=args.bsz, collate_fn=dataset.collate_fn)
+
     answer_result = get_opensource_llm_reponse(data_loader, model, tokenizer, args.sample_number)
 
     save_json(answer_result, output_json_file, indent=2)
