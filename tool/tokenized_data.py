@@ -28,19 +28,23 @@ def preprocess(tokenizer: AutoTokenizer,
                max_seq_len: int, 
                sentence: str) -> dict:
     input_ids = tokenizer(sentence, max_length=max_seq_len, truncation=True, return_tensors="pt").input_ids
-    # TODO: @Jiaxin when the full data is available, save necessary key-value in dict.
+    # [[]] -> []
+    if len(input_ids.size()) == 2:
+        input_ids = input_ids.squeeze(0)
     return {"input_ids": input_ids, "o_len": len(sentence), "sentence": sentence}
 
-def read_jsonl(path: str, max_seq_length: int, tokenizer: AutoTokenizer, args: ArgumentParser) -> Generator[dict, None, None]:    
+# NOTE legacy
+def __read_jsonl(path: str, max_seq_length: int, tokenizer: AutoTokenizer, args: ArgumentParser) -> Generator[dict, None, None]:    
     """This is used for loading the merge data."""
     datas = read_json(path)
-    for _, instance in datas.items():        
+    print(datas)
+    for _, instance in datas.items():     
         example = naive_merge(
             diagram_description=instance["diagram_description"],
             text=instance["text"],
             choice_list=instance["choice_list"]
         )
-                
+        
         if args.prompt_type == "llama2":
             example = convert_to_llama2_input_format(example)
         elif args.prompt_type == "general":
@@ -51,14 +55,31 @@ def read_jsonl(path: str, max_seq_length: int, tokenizer: AutoTokenizer, args: A
             example = convert_to_choice_input_format(example)
         else:
             raise ValueError(f"Unknown prompt type: {args.prompt_type}")
+
         feature = preprocess(tokenizer, max_seq_length, example)
+        # print(feature)
         if feature == None:
             continue
-    
-        feature.update(instance)
-        yield feature
         
-def collate_fn(features: list):
+        # print(feature)
+        
+        # feature["dataset_name"] = instance["dataset_name"]    
+        feature["dataset_id"] = instance["dataset_id"]
+        # feature["dataset_split"] = instance["dataset_split"] 
+        # feature["diagram_name"] = instance["diagram_name"] if instance["diagram_name"] != None else ""
+        # feature["num_dict"] = instance["num_dict"] if instance["num_dict"] != None else ""
+        # feature["equation"] = instance["solution"]["equation"] if instance["solution"]["equation"] != None else ""
+        # feature["program"] = instance["solution"]["program"] if instance["solution"]["program"] != None else ""
+        # feature["cot"] = instance["solution"]["cot"] if instance["solution"]["cot"] != None else ""
+        # feature["python"] = instance["solution"]["python"] if instance["solution"]["python"] != None else ""
+        # feature["answer_value"] = instance["answer_value"] if instance["answer_value"] != None else ""
+        # feature["choice_id"] = instance["choice_id"] if instance["choice_id"] != None else ""
+        # feature["kowledge_point"] = instance["kowledge_point"] if instance["kowledge_point"] != None else ""
+
+        yield feature
+
+# NOTE legacy
+def __collate_fn(features: list):
     input_ids_len = [len(feature["input_ids"]) for feature in features]
     
     # [1, o_len] FIXME: only support batch_size = 1
@@ -68,6 +89,8 @@ def collate_fn(features: list):
     input_sentence = []
     meta_data = []
     for i_len, feature in sorted(zip(input_ids_len, features), key=lambda x: -x[0]):
+        print(feature)
+        
         # FIXME: @Jiaxin very weird bug, the feature["input_ids"] will be [seq_len] when use "llama2"
         #   will be [1, seq_len] when use "general"
         if len(feature["input_ids"]) == 1:
