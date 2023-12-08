@@ -58,7 +58,12 @@ def collate_fn(features: list):
     input_id_ = []
     input_sentence = []
     for i_len, feature in sorted(zip(input_ids_len, features), key=lambda x: -x[0]):
-        ids = torch.LongTensor([feature["input_ids"]])
+        # FIXME: @Jiaxin very weird bug, the feature["input_ids"] will be [seq_len] when use "llama2"
+        #   will be [1, seq_len] when use "general"
+        if len(feature["input_ids"]) == 1:
+            ids = torch.LongTensor(feature["input_ids"])
+        else:
+            ids = torch.LongTensor([feature["input_ids"]])
         id_ = feature["id"]
         o_len = feature["o_len"]
         

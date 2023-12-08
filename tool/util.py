@@ -73,7 +73,7 @@ def process_unigeo_prove(file_path, output_file_path):
     save_json(timu_dict, output_file_path)
 
 def read_json(file_path):
-    with open(file_path, 'r') as file:
+    with open(file_path, 'r', encoding="utf-8") as file:
         data = json.load(file)
     return data
 
@@ -84,11 +84,11 @@ def save_json(data, output_file, indent=None):
     if not os.path.exists(directory):
         os.makedirs(directory)
 
-    with open(output_file, 'w') as wr_file:
+    with open(output_file, 'w', encoding="utf-8") as wr_file:
         if not indent:
-            json.dump(data, wr_file)
+            json.dump(data, wr_file, ensure_ascii=False)
         else:
-            json.dump(data, wr_file, indent=2)
+            json.dump(data, wr_file, indent=2, ensure_ascii=False)
 
 def read_pickle(file_path):
     with open(file_path, 'rb') as file:
