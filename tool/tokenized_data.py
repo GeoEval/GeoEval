@@ -12,6 +12,7 @@ from tqdm import tqdm
 from typing import Generator
 from .util import read_json
 from .prompt import convert_to_llama2_input_format, convert_to_general_input_format, convert_to_easy_input_format, convert_to_choice_input_format
+from .merge_key_val import naive_merge
 
 def load_tokenizer(path_or_name: str, from_local: bool = False) -> AutoTokenizer:
     if from_local:
@@ -31,8 +32,15 @@ def preprocess(tokenizer: AutoTokenizer,
     return {"input_ids": input_ids, "o_len": len(sentence), "sentence": sentence}
 
 def read_jsonl(path: str, max_seq_length: int, tokenizer: AutoTokenizer, args: ArgumentParser) -> Generator[dict, None, None]:    
+    """This is used for loading the merge data."""
     datas = read_json(path)
-    for id_, example in datas.items():
+    for _, instance in datas.items():        
+        example = naive_merge(
+            diagram_description=instance["diagram_description"],
+            text=instance["text"],
+            choice_list=instance["choice_list"]
+        )
+                
         if args.prompt_type == "llama2":
             example = convert_to_llama2_input_format(example)
         elif args.prompt_type == "general":
@@ -46,7 +54,8 @@ def read_jsonl(path: str, max_seq_length: int, tokenizer: AutoTokenizer, args: A
         feature = preprocess(tokenizer, max_seq_length, example)
         if feature == None:
             continue
-        feature["id"] = id_
+    
+        feature.update(instance)
         yield feature
         
 def collate_fn(features: list):
@@ -57,6 +66,7 @@ def collate_fn(features: list):
     input_len = []
     input_id_ = []
     input_sentence = []
+    meta_data = []
     for i_len, feature in sorted(zip(input_ids_len, features), key=lambda x: -x[0]):
         # FIXME: @Jiaxin very weird bug, the feature["input_ids"] will be [seq_len] when use "llama2"
         #   will be [1, seq_len] when use "general"
@@ -64,17 +74,22 @@ def collate_fn(features: list):
             ids = torch.LongTensor(feature["input_ids"])
         else:
             ids = torch.LongTensor([feature["input_ids"]])
-        id_ = feature["id"]
+        id_ = feature["dataset_id"]
         o_len = feature["o_len"]
         
         input_ids = ids
         input_len.append(o_len)
         input_id_.append(id_)
         input_sentence.append(feature["sentence"])
+        
+        meta_data.append(
+            {key: val for key, val in feature.items() if key not in ["input_ids", "o_len",]}
+        )
     
     return {
         "input_ids": input_ids,
         "input_len": input_len,
         "id": input_id_,
         "input_sentence": input_sentence,
+        "meda_data": meta_data,
     }

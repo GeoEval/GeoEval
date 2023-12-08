@@ -22,8 +22,9 @@ def get_opensource_llm_reponse(data_loader, model, tokenizer, sample_number):
         # return_text_all = tokenizer.decode(pred.cpu()[0], skip_special_tokens=True)
         predictions[feature["id"][0]] = {
                 "Problem": feature["input_sentence"][0],
-                "Response": return_text
+                "Response": return_text,
                 }
+        predictions[feature["id"][0]].update(feature["meta_data"][0])
         
         count_number -=1
     return predictions
