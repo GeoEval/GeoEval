@@ -27,7 +27,7 @@ def eval(args, dataset_path, output_json_file):
 
 def eval_opensource_model(args, dataset_path, output_json_file):
     # create model, tokenizer
-    model, tokenizer = create_model_tokenizer(args, from_local=args.from_local)    
+    model, tokenizer, config = create_model_tokenizer(args, from_local=args.from_local)
     
     dataset = GeoEvalDataset(
         dataset_path=dataset_path,
