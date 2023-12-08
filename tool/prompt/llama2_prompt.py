@@ -33,7 +33,7 @@ def format_type(f_type):
         """For cleaning the original format."""
         @wraps(func)
         def wrap_func(example: str, need_clean: bool = True):
-            print(f"Using {f_type} format")
+            print(f"Using {f_type} format", end="\r", flush=True)
             if need_clean:
                 example = re.sub(OLD_FORMAT_BEGIN, "", example)
                 example = re.sub(OLD_FORMAT_END, "", example)
