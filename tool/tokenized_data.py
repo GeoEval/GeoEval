@@ -26,7 +26,7 @@ def load_config(path_or_name: str, from_local: bool = False) -> AutoConfig:
 def preprocess(tokenizer: AutoTokenizer, 
                max_seq_len: int, 
                sentence: str) -> dict:
-    input_ids = tokenizer.encode(sentence, max_length=max_seq_len, truncation=True)
+    input_ids = tokenizer(sentence, max_length=max_seq_len, truncation=True, return_tensors="pt").input_ids
     # TODO: @Jiaxin when the full data is available, save necessary key-value in dict.
     return {"input_ids": input_ids, "o_len": len(sentence), "sentence": sentence}
 
@@ -52,7 +52,8 @@ def read_jsonl(path: str, max_seq_length: int, tokenizer: AutoTokenizer, args: A
 def collate_fn(features: list):
     input_ids_len = [len(feature["input_ids"]) for feature in features]
     
-    input_ids = []
+    # [1, o_len] FIXME: only support batch_size = 1
+    input_ids = None
     input_len = []
     input_id_ = []
     input_sentence = []
@@ -61,13 +62,11 @@ def collate_fn(features: list):
         id_ = feature["id"]
         o_len = feature["o_len"]
         
-        input_ids.append(ids)
+        input_ids = ids
         input_len.append(o_len)
         input_id_.append(id_)
         input_sentence.append(feature["sentence"])
     
-    # [1, o_len] FIXME: only support batch_size = 1
-    input_ids = torch.LongTensor([input_ids])
     return {
         "input_ids": input_ids,
         "input_len": input_len,
