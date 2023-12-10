@@ -69,7 +69,5 @@ if __name__ == '__main__':
     output_json_dir = os.path.join(MAIN_PATH, args.output_dir)
     now_time = datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
     output_json_file = os.path.join(output_json_dir, f"{args.dataset}_{args.model_name}_{now_time}.json")
-    args.cached_dir = os.path.join(MAIN_PATH, args.cached_dir)
-    os.makedirs(args.cached_dir, exist_ok=True)
 
     eval(args, dataset_path, output_json_file)

@@ -1,0 +1,6 @@
+1. 在"sh_files"文件夹创建一个你要测的模型命名的文件夹, 例如"llama2_7b_jiaxin_sample_script"
+2. copy "llama2_7b_jiaxin_sample_script" 所有文件到你创建的文件夹中
+3. 修改"eval_config.yaml"配置文件,
+4. 运行"./evaluate.sh"跑模型, 结果会默认存在"result"文件夹中
+     1. 在"./evaluate.sh"中修改YOUR_CREATE_DIR为你在第一步创建的文件名
+     2. 如果你修改了配置文件的名字(不再是"eval_config.yaml"), 记住在"./evaluate.sh"中修改
