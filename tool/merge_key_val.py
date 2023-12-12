@@ -14,7 +14,7 @@ def naive_merge(diagram_description: dict, text: dict, choice_list: list) -> str
     to_merge_choice = ""
     
     if diagram_description != None:
-        temp = ", ".join(diagram_description["structure"]) + ", ".join(diagram_description["semantic"])
+        temp = ", ".join(diagram_description["structure"]) + "\n" + ", ".join(diagram_description["semantic"])
         to_merge_diagram_description = f"{DIAGRMA_PREFIX} {temp}"
         
     if text != None:
@@ -25,4 +25,4 @@ def naive_merge(diagram_description: dict, text: dict, choice_list: list) -> str
         temp = "[" + ", ".join(choice_list) + "]"
         to_merge_choice = f"{CHOICE_PREFIX} {temp}"
     
-    return to_merge_diagram_description + to_merge_text + to_merge_choice
+    return to_merge_diagram_description + "\n" + to_merge_text + "\n" + to_merge_choice
