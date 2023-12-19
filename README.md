@@ -44,13 +44,6 @@ ICL_Dataset
 The subsequent preprocessing steps need to be addressed, and below is the dataset provided in preprocessed [JSON format](https://drive.google.com/file/d/1ie8HJC5qdlY1pxn4H0peoV6A3TgHAbTx/view?usp=drive_link).
 
 
-### Preprocess Data
-
-Place the dataset in the workspace, and then run the following code:
-
-```python
-python tool\process_geometry3k_pgps9k.py
-python tool\process_unigeo_cat_prove.py
 ```
 
 #### Download the Data Converted to Python by us
@@ -83,69 +76,41 @@ bash pgps9k/ext_result
 | Baichuan2-13B-Base     | ---        | ---    | ---                             |
 | vicuna-7b              | ---        | ---    | ---                             |
 | vicuna-13b             | ---        | ---    | ---                             |
-| pythia-1b              | ---        | ---    | ---                             |
-| pythia-2.8b            | ---        | ---    | ---                             |
-| pythia-6.9b            | ---        | ---    | ---                             |
-| pythia-12b             | ---        | ---    | ---                             |
 | **Code Models**        |            |        |                                 |
 | CodeLlama-7b           | ---        | ---    | ---                             |
 | CodeLlama-13b          | ---        | ---    | ---                             |
-| StarCoder-1b           | ---        | ---    | ---                             |
-| StarCoder-3b           | ---        | ---    | ---                             |
-| StarCoder-7b           | ---        | ---    | ---                             |
-| StarCoder-15b          | ---        | ---    | ---                             |
 | CodeGen-2b             | ---        | ---    | ---                             |
 | CodeGen-6b             | ---        | ---    | ---                             |
 | CodeGen-15b            | ---        | ---    | ---                             |
 | **Math Models**        |            |        |                                 |
 | WizardMath-7B-V1.0     | ---        | ---    | ---                             |
 | WizardMath-13B-V1.0    | ---        | ---    | ---                             |
-| MAmmoTH-7B             | ---        | ---    | ---                             |
-| MAmmoTH-13B            | ---        | ---    | ---                             |
+| MAmmoTH-70B            | ---        | ---    | ---                             |
 | galactica-1.3b         | ---        | ---    | ---                             |
 | galactica-6.7b         | ---        | ---    | ---                             |
 | MetaMath-Mistral-7B    | ---        | ---    | ---                             |
 | MetaMath-Llemma-7B     | ---        | ---    | ---                             |
-| MetaMath-7B-V1.0       | ---        | ---    | ---                             |
+| MetaMath-70B       | ---        | ---    | ---                             |
 
 
 
 ### Mode Without Multiple-Choice Questions Hint.
-| Model Name             | Geometry3K | PGPS9K | UniGeo Caculation(GeoQA English) |
-|:----------------------:|:----------:|:------:|:-------------------------------:|
-| **Common Models**      |            |        |                                 |
-| GPT3.5-turbo           | 0.55       |  ---   | 0.34                            |
-| internlm-7b            | ---        | ---    | ---                             |
-| internlm-20b           | ---        | ---    | ---                             |
-| Qwen-7B                | ---        | ---    | ---                             |
-| Qwen-14B               | ---        | ---    | ---                             |
-| Baichuan2-7B-Base      | ---        | ---    | ---                             |
-| Baichuan2-13B-Base     | ---        | ---    | ---                             |
-| vicuna-7b              | ---        | ---    | ---                             |
-| vicuna-13b             | ---        | ---    | ---                             |
-| pythia-1b              | ---        | ---    | ---                             |
-| pythia-2.8b            | ---        | ---    | ---                             |
-| pythia-6.9b            | ---        | ---    | ---                             |
-| pythia-12b             | ---        | ---    | ---                             |
-| **Code Models**        |            |        |                                 |
-| CodeLlama-7b           | ---        | ---    | ---                             |
-| CodeLlama-13b          | ---        | ---    | ---                             |
-| StarCoder-1b           | ---        | ---    | ---                             |
-| StarCoder-3b           | ---        | ---    | ---                             |
-| StarCoder-7b           | ---        | ---    | ---                             |
-| StarCoder-15b          | ---        | ---    | ---                             |
-| CodeGen2-3.7b             | ---        | ---    | ---                             |
-| CodeGen2-7b             | ---        | ---    | ---                             |
-| **Math Models**        |            |        |                                 |
-| WizardMath-7B-V1.0     | ---        | ---    | ---                             |
-| WizardMath-13B-V1.0    | ---        | ---    | ---                             |
-| MAmmoTH-7B             | ---        | ---    | ---                             |
-| MAmmoTH-13B            | ---        | ---    | ---                             |
-| galactica-1.3b         | ---        | ---    | ---                             |
-| galactica-6.7b         | ---        | ---    | ---                             |
-| MetaMath-Mistral-7B    | ---        | ---    | ---                             |
-| MetaMath-Llemma-7B     | ---        | ---    | ---                             |
-| MetaMath-7B-V1.0       | ---        | ---    | ---                             |
+| Model Name             | GeoEval(test) |
+|:----------------------:|:----------:|
+| **Commercial Data Model**|            |
+| **Common Models**      |            |
+| GPT3.5-turbo           | 0.55       | 
+| Llama2-70B-Chat        | ---        | 
+| Qwen-70B-Chat          | ---        | 
+| -70B-Chat              | ---        | 
+| **Code Models**        |            |  
+| CodeLlama-70B          | ---        |
+| CodeGen2-16B           | ---        | 
+| **Math Models**        |            |
+| WizardMath-70B         | ---        | 
+| MAmmoTH-70B            | ---        | 
+| galactica-120B         | ---        | 
+| MetaMath-70B           | ---        | 
 
 
 ## Caculation Prolem Results(Visual-Text Large Laugage Model)
