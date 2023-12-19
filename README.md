@@ -46,8 +46,8 @@ bash pgps9k/caculate_score.sh
 | Minmax                 | ---        |  
 | **Common Models**      |            |
 | Llama2-70B-Chat        | ---        | 
-| Qwen-70B-Chat          | ---        | 
-| -70B-Chat              | ---        | 
+| Qwen-72B-Chat          | ---        | 
+| Qwen-72B-Chat          | ---        | 
 | **Code Models**        |            |  
 | CodeLlama-70B          | ---        |
 | CodeGen2-16B           | ---        | 
@@ -67,8 +67,7 @@ bash pgps9k/caculate_score.sh
 | Minmax                 | ---        |  
 | **Common Models**      |            |
 | Llama2-70B-Chat        | ---        | 
-| Qwen-70B-Chat          | ---        | 
-| -70B-Chat              | ---        | 
+| Qwen-72B-Chat          | ---        | 
 | **Code Models**        |            |  
 | CodeLlama-70B          | ---        |
 | CodeGen2-16B           | ---        | 
