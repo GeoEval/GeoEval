@@ -54,11 +54,12 @@ def eval_api_model(dataset_path, output_json_file):
         
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
+    parser.add_argument("--prompt_type", default="llama2", choices=["llama2", "general", "easy", "choice"], type=str) # prompt_type
     parser.add_argument("--config_yaml", type=str)
     args = parser.parse_args()
     config = read_yaml(os.path.join(MAIN_PATH, args.config_yaml))
     
-    args = vars(args)
+    args = vars(args)  # args提供支持最简单的方法
     for config_name, configs in config.items():
         if config_name == "General":
             for key, val in configs.items():
