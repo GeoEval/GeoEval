@@ -1,0 +1,14 @@
+General:
+  dataset: "GeoEval" # 随便取
+  model_type: "opensource_model" # [api_model, opensource_model] 如果从local load weights, 那就选"opensource_model"
+  model_name: "Qwen-7B-Chat" # 随便, 只要和你跑的模型能对上就行, "result"文件夹保存的predicitons的文件名会包含这个"model_name"
+  eval_dataset_path: "LLM_eval/"    # 数据集的第一层文件夹位置, 是"relative directory path"
+  input_file: "dataset_merge/all.json" # 测试集文件在"eval_dataset_path"的位置, 是"relative directory path", 例如这里, 文件存在主目录的"LLM_eval/dataset_merge/all.json"中
+  output_dir: "result" # predictions存的文件夹, 是"relative dir path"
+  weight_path: "/home/kas/checkpoint/LayoutNUWA/download_llama/Qwen/Qwen-7B-Chat"   # 模型weights的地址, 是"absolute path"
+  max_seq_length: 1024  # 生成的文本最长长度
+  bsz: 1                # 测试默认batch为1, 如果设置其他数值, 肯定会出bug, 哈哈
+  load_in_8bit: False   # 暂时没用
+  from_local: True      # 是否从local load model weights
+  merge_type: "naive"   # ["naive"] 怎么把 "diagram_description", "text", "choice_list"合成一个问题, 参考"GeoEval/tool/merge_key_val.py"
+  sample_number: 10     # 用于debug, 测试多少数据集就停止并保存predictions, 设置为"-1"代表跑所有的数据集
