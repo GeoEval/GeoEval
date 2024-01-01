@@ -138,7 +138,7 @@ def extract_answer(instance, model_name):
         pass
     
     elif model_name == "instructblip":
-        pass
+        return extract_instructblip(instance)
     
     elif model_name == "llava":
         return extract_llava(instance)
