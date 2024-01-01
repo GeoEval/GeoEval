@@ -8,7 +8,7 @@ from tqdm import tqdm
 from util import read_json
 from util import save_json
 # load demo 
-from Code_workspace.GeoEval.tool.prompt.archive_code.ext_prompt import ext_prompt
+# from Code_workspace.GeoEval.tool.prompt.archive_code.ext_prompt import ext_prompt
 from gpt_tool import get_chat_reponse
 
 def create_test_prompt(demo_prompt, response):
