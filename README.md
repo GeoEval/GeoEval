@@ -54,8 +54,8 @@ bash sh_files/gpt35/caculate_score.sh
 | Model Name                   | GeoEval(multi-modal-part) | GeoEval(text-part) |
 |:----------------------------:|:--------------------------:|:-------------------:|
 | **Commercial Data Model**    |                            |                     |
-| GPT3.5-turbo                 |                            |                     |
-| Minmax                       |                            |                     |
+| GPT3.5-turbo                 |          16.3%             |         16.57%      |
+| Minmax                       |           ---              |          ---        |
 | **Common Models**            |                            |                     |
 | Llama2-70B-Chat              |                            |                     |
 | Qwen-72B-Chat                |                            |                     |
@@ -69,33 +69,14 @@ bash sh_files/gpt35/caculate_score.sh
 
 
 
-
-### Mode Without Multiple-Choice Questions Hint.
-| Model Name                   | GeoEval(multi-modal-part) | GeoEval(text-part) |
-|:----------------------------:|:--------------------------:|:-------------------:|
-| **Commercial Data Model**    |                            |                     |
-| GPT3.5-turbo                 |                            |                     |
-| Minmax                       |                            |                     |
-| **Common Models**            |                            |                     |
-| Llama2-70B-Chat              |                            |                     |
-| Qwen-72B-Chat                |                            |                     |
-| **Code Models**              |                            |                     |
-| CodeLlama-70B                |                            |                     |
-| CodeGen2-16B                 |                            |                     |
-| **Math Models**              |                            |                     |
-| WizardMath-70B               |                            |                     |
-| MAmmoTH-70B                  |                            |                     |
-| MetaMath-70B                 |                            |                     | 
-
-
 ## Caculation Prolem Results(Visual-Text Large Laugage Model)
 | Model Name          | GeoEval(multi-modal-part) | GeoEval(text-part) | 
 |:-------------------:|:----------:|:------:|
 | visualglm-6b        | ---        | ---    |
 | llava-v1.5-7b       | ---        | ---    |
 | llama-adapter-7b    | ---        | ---    |
-| Qwen-VL             | ---        | ---    |
-| mPLUG-Owl           | ---        | ---    |
+| Qwen-VL             | 9.8%       | 12.9%  |
+| mPLUG-Owl           | 17.1%      | ---    |
 | InstructBLIP        | ---        | ---    |
 | CogVLM              | ---        | ---    | 
 
