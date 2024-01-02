@@ -2,6 +2,8 @@ import torch
 from tqdm import tqdm
 device = "cuda" if torch.cuda.is_available() else "cpu"
 
+
+
 def get_opensource_llm_reponse(data_loader, model, tokenizer, sample_number):
     predictions = {}
     count_number = sample_number

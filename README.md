@@ -24,71 +24,83 @@ To get started with this project, you need to download the initial dataset Contr
 
 In addition to that, there are also some text-based datasets, including [MathQA](https://drive.google.com/file/d/11E3ALsQxEtOPVtjKxrAwN99MIhtWl4No/view?usp=drive_link), [GeometryQA](https://github.com/DoubleBite/Sequence-to-General-tree/blob/master/data/geometryQA/geometry1398.json), and the [MATH](https://drive.google.com/file/d/1t4X03JIVXl6X_GNXl8R70W_rExJ_m_xD/view?usp=sharing) dataset, for geometry portion, please download here [MATH-Geometry](https://drive.google.com/file/d/1NaSMxlHM7zyBxW7cHV8ZSXeWLeDEpTIG/view?usp=sharing). These questions require a thorough understanding of geometric concepts and knowledge to solve.
 
-The complete data of GeoEval can be found at [GeoEval-all](https://drive.google.com/file/d/1CpoZ3bFSxJXZxJhj0fmUp4ZxcR5TUdiu/view?usp=sharing)
-The test-part of GeoEval can be found at [GeoEval-test](https://drive.google.com/file/d/1CpoZ3bFSxJXZxJhj0fmUp4ZxcR5TUdiu/view?usp=sharing)
+### Download GeoVal-merge Dataset
+
+1. Choose the merged data from the provided Google Drive [GeoEval](https://drive.google.com/file/d/1CpoZ3bFSxJXZxJhj0fmUp4ZxcR5TUdiu/view?usp=sharing).
+2. Extract the selected data into the "LLM Eval" directory.
+3. Notably, the "select.json" file serves as the test set for GeoEval, while "train.json" corresponds to the original training sets of various data sources, and "test.json" represents the original test sets of various data sources.
+
+
 ```
+
 ## Model Evaluation
 
-Run the scripts under sh_files/{dataset} to achieve inference responsiveness, result extraction, and metric calculation for large models.
+Run the scripts under sh_files/{model} to achieve inference responsiveness, result extraction, and metric calculation for large models.
 
 ```bash
-# PGPS9K Pipeline Example
-bash pgps9k/get_response.sh
-bash pgps9k/ext_result.sh
-bash pgps9k/caculate_score.sh
+# GeoEval Text-LLM Pipeline Example
+bash sh_files/gpt35/evaluate_general.sh
+bash sh_files/gpt35/ext_result.sh
+bash sh_files/gpt35/caculate_score.sh
+```
+
+```bash
+# GeoEval Multimodal-LLM Pipeline Example
+# To begin, you need to place a file named "eval_GeoEval_result.json" in the "result/{model_name}" directory. Then:
+bash sh_files/gpt35/ext_result.sh
+bash sh_files/gpt35/caculate_score.sh
 ```
 
 ## Caculation Prolem Results(Pure-Text Large Laugage Model)
 
 ### Mode with Multiple-Choice Questions Hint.
-| Model Name             | GeoEval(test) |
-|:----------------------:|:----------:|
-| **Commercial Data Model**|            |
-| GPT3.5-turbo           | ---        | 
-| Minmax                 | ---        |  
-| **Common Models**      |            |
-| Llama2-70B-Chat        | ---        | 
-| Qwen-72B-Chat          | ---        | 
-| **Code Models**        |            |  
-| CodeLlama-70B          | ---        |
-| CodeGen2-16B           | ---        | 
-| **Math Models**        |            |
-| WizardMath-70B         | ---        | 
-| MAmmoTH-70B            | ---        | 
-| galactica-120B         | ---        | 
-| MetaMath-70B           | ---        | 
+| Model Name                   | GeoEval(multi-modal-part) | GeoEval(text-part) |
+|:----------------------------:|:--------------------------:|:-------------------:|
+| **Commercial Data Model**    |                            |                     |
+| GPT3.5-turbo                 |                            |                     |
+| Minmax                       |                            |                     |
+| **Common Models**            |                            |                     |
+| Llama2-70B-Chat              |                            |                     |
+| Qwen-72B-Chat                |                            |                     |
+| **Code Models**              |                            |                     |
+| CodeLlama-70B                |                            |                     |
+| CodeGen2-16B                 |                            |                     |
+| **Math Models**              |                            |                     |
+| WizardMath-70B               |                            |                     |
+| MAmmoTH-70B                  |                            |                     |
+| MetaMath-70B                 |                            |                     |
+
 
 
 
 ### Mode Without Multiple-Choice Questions Hint.
-| Model Name             | GeoEval(test) |
-|:----------------------:|:----------:|
-| **Commercial Data Model**|            |
-| GPT3.5-turbo           | ---        | 
-| Minmax                 | ---        |  
-| **Common Models**      |            |
-| Llama2-70B-Chat        | ---        | 
-| Qwen-72B-Chat          | ---        | 
-| **Code Models**        |            |  
-| CodeLlama-70B          | ---        |
-| CodeGen2-16B           | ---        | 
-| **Math Models**        |            |
-| WizardMath-70B         | ---        | 
-| MAmmoTH-70B            | ---        | 
-| galactica-120B         | ---        | 
-| MetaMath-70B           | ---        |  
+| Model Name                   | GeoEval(multi-modal-part) | GeoEval(text-part) |
+|:----------------------------:|:--------------------------:|:-------------------:|
+| **Commercial Data Model**    |                            |                     |
+| GPT3.5-turbo                 |                            |                     |
+| Minmax                       |                            |                     |
+| **Common Models**            |                            |                     |
+| Llama2-70B-Chat              |                            |                     |
+| Qwen-72B-Chat                |                            |                     |
+| **Code Models**              |                            |                     |
+| CodeLlama-70B                |                            |                     |
+| CodeGen2-16B                 |                            |                     |
+| **Math Models**              |                            |                     |
+| WizardMath-70B               |                            |                     |
+| MAmmoTH-70B                  |                            |                     |
+| MetaMath-70B                 |                            |                     | 
 
 
 ## Caculation Prolem Results(Visual-Text Large Laugage Model)
-| Model Name          | Geometry3K | PGPS9K | UniGeo Caculation(GeoQA English) |
-|:-------------------:|:----------:|:------:|:-------------------------------:|
-| visualglm-6b        | ---        | ---    | ---                             |
-| llava-v1.5-7b       | ---        | ---    | ---                             |
-| llama-adapter-7b    | ---        | ---    | ---                             |
-| Qwen-VL             | ---        | ---    | ---                             |
-| mPLUG-Owl           | ---        | ---    | ---                             |
-| InstructBLIP        | ---        | ---    | ---                             |
-| CogVLM              | ---        | ---    | ---                             |
+| Model Name          | GeoEval(multi-modal-part) | GeoEval(text-part) | 
+|:-------------------:|:----------:|:------:|
+| visualglm-6b        | ---        | ---    |
+| llava-v1.5-7b       | ---        | ---    |
+| llama-adapter-7b    | ---        | ---    |
+| Qwen-VL             | ---        | ---    |
+| mPLUG-Owl           | ---        | ---    |
+| InstructBLIP        | ---        | ---    |
+| CogVLM              | ---        | ---    | 
 
 
 

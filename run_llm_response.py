@@ -1,6 +1,6 @@
 from tool.gpt_tool import get_chat_reponse
 from tool.opensource_llm_tool import get_opensource_llm_reponse
-from tool.util import read_json, save_json
+from tool import save_json, read_json
 from model import create_model_tokenizer
 from tqdm import tqdm
 import argparse 
@@ -13,15 +13,15 @@ from datasets import Dataset
 from torch.utils.data import DataLoader
 MAIN_PATH = Path(__file__).absolute().parent
 
-from tool.data_loader import GeoEvalDataset
+from tool.data_loader import GeoEvalDataset, GeoApiEvalDataset
 
 dataset_list = ['Geometry3K','PGPS9K', 'UniGeo_Cat', 'UniGeo_Prove']
 type_list = ['api_model', 'opensource_model']
-model_list = ['gpt35', '']
+model_list = ['gpt35']
 
 def eval(args, dataset_path, output_json_file):
     if args.model_type == 'api_model':
-        eval_api_model(dataset_path, output_json_file)
+        eval_api_model(args, dataset_path, output_json_file)
     if args.model_type == 'opensource_model':
         eval_opensource_model(args, dataset_path, output_json_file)
 
@@ -42,13 +42,26 @@ def eval_opensource_model(args, dataset_path, output_json_file):
 
     save_json(answer_result, output_json_file, indent=2)
 
-def eval_api_model(dataset_path, output_json_file):
-    data_load = read_json(dataset_path)
-
+def eval_api_model(args, dataset_path, output_json_file):
+    # import pdb; pdb.set_trace()
+    dataset = GeoApiEvalDataset(
+        dataset_path=dataset_path,
+        args=args,
+    )
+    data_loader = DataLoader(dataset, batch_size=1, collate_fn=dataset.collate_fn)
     answer_dict = {}
-    for data_k, question in tqdm(data_load.items()):
-        answer_result = get_chat_reponse(question)
-        answer_dict[data_k] =  answer_result
+    times = 0
+    for data_iter in tqdm(data_loader):
+        # if times>=3:
+        #    break
+        model_input = data_iter["model_input"]
+        instance_id = data_iter['prob_id']
+        instance    = data_iter['instance']
+        for i in range(args.bsz):
+            answer_result = get_chat_reponse(model_input[i])
+            instance[i]["solution"][args.model_name] = answer_result
+            answer_dict[instance_id[i]] = instance[i]
+        times +=1
 
     save_json(answer_dict, output_json_file)
         
@@ -65,10 +78,10 @@ if __name__ == '__main__':
             for key, val in configs.items():
                 args[key] = val
     args = Namespace(**args)
-
+    # import pdb;pdb.set_trace()
     dataset_path = os.path.join(MAIN_PATH, args.eval_dataset_path, args.input_file)
-    output_json_dir = os.path.join(MAIN_PATH, args.output_dir)
-    now_time = datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
-    output_json_file = os.path.join(output_json_dir, f"{args.dataset}_{args.model_name}_{now_time}.json")
+    output_json_dir = os.path.join(MAIN_PATH, args.output_dir.format_map(dict(model_name=args.model_name)))
+    # now_time = datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
+    output_json_file = os.path.join(output_json_dir, f"eval_{args.dataset}_result.json")
 
     eval(args, dataset_path, output_json_file)

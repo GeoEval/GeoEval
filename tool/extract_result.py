@@ -5,11 +5,16 @@ import argparse
 
 from tqdm import tqdm
 
-from util import read_json
-from util import save_json
+import sys
+sys.path.append('../GeoEval')
+from tool.util import read_json
+from tool.util import save_json
 # load demo 
-# from Code_workspace.GeoEval.tool.prompt.archive_code.ext_prompt import ext_prompt
+
+
+from prompt.ext_prompt import ext_prompt
 from gpt_tool import get_chat_reponse
+
 
 def create_test_prompt(demo_prompt, response):
     demo_prompt = demo_prompt.strip()
@@ -43,23 +48,33 @@ def extract_answer(response, quick_extract=False):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     # input
-    parser.add_argument('--output_dir', type=str, default='result/gpt35')
-    parser.add_argument('--output_file', type=str, default='eval_UniGeo_Cat_result.json')
+    parser.add_argument('--model_name', type=str, default='mplug_owl2')
+    parser.add_argument('--dataset_name', type=str, default='GeoEval')
+    parser.add_argument('--output_dir', type=str, default='result/{model_name}')
+    parser.add_argument('--output_file', type=str, default='eval_{dataset_name}_result.json')
     # model
     parser.add_argument('--quick_extract', action='store_true', default=True, help='use rules to extract answer for some problems')
     args = parser.parse_args()
     # args
-    result_file = os.path.join(args.output_dir, args.output_file)
+    args.output_dir = args.output_dir.format_map(dict(model_name=args.model_name))
+    # 
+    result_file = os.path.join(args.output_dir, args.output_file.format_map(dict(dataset_name=args.dataset_name)))
     # read results
     print(f"Reading {result_file}...")
+    #import pdb; pdb.set_trace()
     results = read_json(result_file)
 
     results_with_extraction = {}
     # tqdm, enumerate results
-    for problem_id, response in tqdm(results.items()):
-        extraction  = extract_answer(response, args.quick_extract)
-        # import pdb; pdb.set_trace()
-        results_with_extraction[problem_id] = dict(response=response,extraction=extraction)
+    for problem_id, data_item in tqdm(results.items()):
+        try:
+            extraction  = extract_answer(data_item["solution"][args.model_name], args.quick_extract)
+            # import pdb; pdb.set_trace()
+            response = data_item["solution"][args.model_name]
+            data_item["solution"][args.model_name] = dict(response=response,extraction=extraction)
+        except:
+            pass
+        results_with_extraction[problem_id] = data_item
 
     print(f"Saving results to {result_file}...")
     save_json(results_with_extraction, result_file)
