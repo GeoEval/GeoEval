@@ -3,10 +3,62 @@ import re
 import argparse
 from tqdm import tqdm
 
+import sys
+sys.path.append('../GeoEval')
 # !pip install python-Levenshtein
-from util import read_json, save_json, read_pickle
+from tool.util import read_json, save_json, read_pickle
 
 ID_2_TARGET_DICT = {}
+
+
+def caculate_score_on_geoeval(args):
+    # args
+    read_file = os.path.join(args.output_dir, args.output_file)
+    # read result json with answer extract and problem file
+    print(f"Reading {read_file}...")
+    results = read_json(read_file)
+    ## [1] Evaluate if the prediction is true or false
+    print("\nEvaluating the predictions...")
+    multi_modal_correct = 0
+    text_correct = 0
+    text_count = 0
+    multi_modal_count = 0
+    for problem_id, reason_with_answer in tqdm(results.items()):
+        if reason_with_answer["diagram_name"]!=None:
+            answer = reason_with_answer["answer_value"]
+            extraction = reason_with_answer["solution"][args.model_name]["extraction"]
+            # normalize the extracted answer to match the answer type
+            prediction = normalize_extracted_answer(extraction)
+            # verify the prediction is true or false
+            true_false = safe_equal(prediction, answer)
+            multi_modal_count += 1
+            if true_false:
+                multi_modal_correct += 1
+        else:
+            try:
+                answer = reason_with_answer["answer_value"]
+                extraction = reason_with_answer["solution"][args.model_name]["extraction"]
+                # normalize the extracted answer to match the answer type
+                prediction = normalize_extracted_answer(extraction)
+                # verify the prediction is true or false
+                true_false = safe_equal(prediction, answer)
+                if true_false:
+                    text_correct += 1
+            except:
+                pass
+            text_count += 1
+
+    # import pdb; pdb.set_trace()
+    assert (text_count+multi_modal_count)==2000
+
+    scores = {"average": {"multi_modal_accuracy": multi_modal_correct/multi_modal_count, 
+                          "text_accuracy": text_correct/text_count, 
+                          "multi_modal_correct": multi_modal_correct, "text_correct":text_correct, "total": 2000}}
+    # save the scores
+    # import pdb; pdb.set_trace()
+    scores_file = os.path.join(args.output_dir, args.score_file)
+    save_json(scores, scores_file)
+    return 
 
 def build_id_target_dict(problem_data):
     for prob_item in problem_data:
@@ -115,25 +167,21 @@ def safe_equal(prediction, answer):
         
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--output_dir', type=str, default='result/gpt35')
-    parser.add_argument('--dataset_name', type=str, default='UniGeo_Cat')
+    parser.add_argument('--output_dir', type=str, default='result/{model_name}')
+    parser.add_argument('--model_name', type=str, default='mplug_owl2')
+    parser.add_argument('--dataset_name', type=str, default='GeoEval')
     parser.add_argument('--output_file', type=str, default='eval_{dataset_name}_result.json')
 
-    parser.add_argument('--problem_path', type=str, default='ICL_dataset/')
+    parser.add_argument('--problem_path', type=str, default='LLM_eval/')
     parser.add_argument('--problem_file', type=str, default='test.json')
 
     parser.add_argument('--score_file', type=str, default='eval_{dataset_name}_result_score.json')
     args = parser.parse_args()
 
     args.output_file = args.output_file.format_map(dict(dataset_name=args.dataset_name))
+    args.output_dir = args.output_dir.format_map(dict(model_name=args.model_name))
     args.score_file  = args.score_file.format_map(dict(dataset_name=args.dataset_name))
-    if args.dataset_name == "PGPS9K" or args.dataset_name == "Geometry3K":
-        args.problem_path = os.path.join(args.problem_path, 'PGPS9K_all', args.dataset_name) 
-        args.problem_file = 'test.json'
-        caculate_score_on_Geo3K_PGPS9K(args)
-    if args.dataset_name == "UniGeo_Cat" or args.dataset_name == "UniGeo_Cat":
-        args.problem_path = os.path.join(args.problem_path, 'UniGeo')
-        args.problem_file = 'calculation_test.pk'
-        caculate_score_on_UniGeo(args)
-
-
+    if args.dataset_name == "GeoEval": 
+        args.problem_path = os.path.join(args.problem_path, 'dataset_merge')
+        args.problem_file = 'select.json'
+        caculate_score_on_geoeval(args)
