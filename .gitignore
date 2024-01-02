@@ -161,6 +161,7 @@ cython_debug/
 
 # 忽略所有JSON文件
 *.json
+!result/*.json
 ICL_dataset/*
 !ICL_DATASET/*.md
 tool\gpt_tool.py
