@@ -3,9 +3,9 @@ import json
 import pickle
 import yaml
 import codecs
-from .prompt.dataset_prompt import GeoQA_PROMPT_DICT, Geometry3K_PROMPT_DICT, UniGeo_Cat_Prompt_DICT, UniGeo_Prove_Prompt_DICT
-from .prompt.translate_prompt import trans_prompt
-from .gpt_tool import get_chat_reponse
+from tool.prompt.dataset_prompt import GeoQA_PROMPT_DICT, Geometry3K_PROMPT_DICT, UniGeo_Cat_Prompt_DICT, UniGeo_Prove_Prompt_DICT
+from tool.prompt.translate_prompt import trans_prompt
+from tool.gpt_tool import get_chat_reponse
 from tqdm import tqdm
 
 def translate_timu(input_string):
