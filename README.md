@@ -24,6 +24,9 @@ To get started with this project, you need to download the initial dataset Contr
 
 In addition to that, there are also some text-based datasets, including [MathQA](https://drive.google.com/file/d/11E3ALsQxEtOPVtjKxrAwN99MIhtWl4No/view?usp=drive_link), [GeometryQA](https://github.com/DoubleBite/Sequence-to-General-tree/blob/master/data/geometryQA/geometry1398.json), and the [MATH](https://drive.google.com/file/d/1t4X03JIVXl6X_GNXl8R70W_rExJ_m_xD/view?usp=sharing) dataset, for geometry portion, please download here [MATH-Geometry](https://drive.google.com/file/d/1NaSMxlHM7zyBxW7cHV8ZSXeWLeDEpTIG/view?usp=sharing). These questions require a thorough understanding of geometric concepts and knowledge to solve.
 
+The backward reasoning dataset is on [GeoEval-backward-augmentation](https://drive.google.com/file/d/1Oj0z7mGbDBdBbvjP6gbmhAs1sP553Hz3/view?usp=sharing)
+The rephrase augmentation dataset is on [GeoEval-rephase-augmentation]()
+
 ### Download GeoVal-merge Dataset
 
 1. Choose the merged data from the provided Google Drive [GeoEval](https://drive.google.com/file/d/1CpoZ3bFSxJXZxJhj0fmUp4ZxcR5TUdiu/view?usp=sharing).
