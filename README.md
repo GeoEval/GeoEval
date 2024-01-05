@@ -30,6 +30,8 @@ In addition to that, there are also some text-based datasets, including [MathQA]
 2. Extract the selected data into the "LLM Eval" directory.
 3. Notably, the "select.json" file serves as the test set for GeoEval, while "train.json" corresponds to the original training sets of various data sources, and "test.json" represents the original test sets of various data sources.
 
+The backward reasoning dataset is on [GeoEval-backward-augmentation](https://drive.google.com/file/d/1Oj0z7mGbDBdBbvjP6gbmhAs1sP553Hz3/view?usp=sharing)
+The rephrase augmentation dataset is on [GeoEval-rephase-augmentation]()
 
 ```
 
