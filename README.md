@@ -65,12 +65,9 @@ bash sh_files/gpt35/caculate_score.sh
 | Llama2-70B-Chat              |                            |                     |
 | Qwen-72B-Chat                |                            |                     |
 | **Code Models**              |                            |                     |
-| CodeLlama-70B                |                            |                     |
 | CodeGen2-16B                 |                            |                     |
 | **Math Models**              |                            |                     |
 | WizardMath-70B               |                            |                     |
-| MAmmoTH-70B                  |                            |                     |
-| MetaMath-70B                 |                            |                     |
 
 
 
@@ -85,12 +82,9 @@ bash sh_files/gpt35/caculate_score.sh
 | Llama2-70B-Chat              |                            |                     |
 | Qwen-72B-Chat                |                            |                     |
 | **Code Models**              |                            |                     |
-| CodeLlama-70B                |                            |                     |
 | CodeGen2-16B                 |                            |                     |
 | **Math Models**              |                            |                     |
 | WizardMath-70B               |                            |                     |
-| MAmmoTH-70B                  |                            |                     |
-| MetaMath-70B                 |                            |                     | 
 
 
 ## Caculation Prolem Results(Visual-Text Large Laugage Model)
