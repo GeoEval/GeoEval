@@ -9,9 +9,8 @@ from transformers import AutoTokenizer
 
 from .util import read_json
 from .merge_key_val import naive_merge
-from .prompt import convert_to_llama2_input_format, convert_to_general_input_format, convert_to_easy_input_format, convert_to_choice_input_format
+from .prompt import convert_to_llama2_input_format, convert_to_general_input_format, convert_to_easy_input_format, convert_to_choice_input_format, convert_to_fewshot_input_format
 from .tokenized_data import preprocess
-
 
 class GeoApiEvalDataset(Dataset):
     def __init__(self, dataset_path: str, args: ArgumentParser):
@@ -79,8 +78,8 @@ class GeoApiEvalDataset(Dataset):
         # FIXME: for llama2, there is no pad_token, since we are using bsz=1,
         # setting 0 here doesn't influence.
         return dict(model_input=model_inputs, prob_id=prob_ids, instance=instances)
-    
-    
+
+
 class GeoEvalDataset(Dataset):
     def __init__(self, dataset_path: str, max_seq_length: int, tokenizer: AutoTokenizer, args: ArgumentParser):
         self.dataset_path = dataset_path
@@ -93,12 +92,13 @@ class GeoEvalDataset(Dataset):
         print(f"load {len(raw_datas)} original data")
         
         self.datas = []
-        for _, instance in raw_datas.items():
+        for key, instance in raw_datas.items():
             feature = self._process_per_instance(
                 instance=instance,
                 merge_type=args.merge_type,
                 prompt_type=args.prompt_type,
             )
+            feature["unique_id"] = key
             if feature != None:
                 self.datas.append(feature)
         print(f"processed {len(self.datas)} data")
@@ -120,6 +120,8 @@ class GeoEvalDataset(Dataset):
             example = convert_to_easy_input_format(example)
         elif prompt_type == "choice":
             example = convert_to_choice_input_format(example)
+        elif prompt_type == "fewshot":
+            example = convert_to_fewshot_input_format(example)
         else:
             raise ValueError(f"Unknown prompt type: {prompt_type}")
 
