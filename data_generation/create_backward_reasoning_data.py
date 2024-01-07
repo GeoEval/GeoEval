@@ -168,7 +168,7 @@ if __name__ == "__main__":
     parser.add_argument("--save_path", type=str)
     
     args = parser.parse_args()
-    args.data_path = MAIN_PATH / "LLM_eval/dataset_merge/all.json"
-    args.save_path = MAIN_PATH / "LLM_eval/dataset_merge/backward_reasoning.json"
+    args.data_path = MAIN_PATH / "LLM_eval/dataset_merge/select.json"
+    args.save_path = MAIN_PATH / "LLM_eval/dataset_merge/backward_reasoning_select.json"
     
     main(args)
