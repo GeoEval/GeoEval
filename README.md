@@ -91,11 +91,11 @@ bash sh_files/gpt35/caculate_score.sh
 | Model Name          | GeoEval(multi-modal-part) | GeoEval(text-part) | 
 |:-------------------:|:----------:|:------:|
 | visualglm-6b        | ---        | ---    |
-| llava-v1.5-7b       | ---        | ---    |
+| llava-v1.5-7b       | 8.4%       | ---    |
 | llama-adapter-7b    | ---        | ---    |
 | Qwen-VL             | 9.8%       | 12.9%  |
-| mPLUG-Owl           | 17.1%      | ---    |
-| InstructBLIP        | ---        | ---    |
+| mPLUG-Owl           | 24.6%      | ---    |
+| InstructBLIP        | 27.2%      | ---    |
 | CogVLM              | ---        | ---    | 
 
 
