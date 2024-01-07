@@ -48,6 +48,9 @@ def caculate_score_on_geoeval(args):
                 pass
             text_count += 1
 
+    if args.model_name=="instructblip" or args.model_name=="llava":
+        text_correct = 0
+        text_count = 2000-multi_modal_count
     # import pdb; pdb.set_trace()
     assert (text_count+multi_modal_count)==2000
 
