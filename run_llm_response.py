@@ -67,21 +67,20 @@ def eval_api_model(args, dataset_path, output_json_file):
         
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument("--prompt_type", default="llama2", choices=["llama2", "general", "easy", "choice"], type=str) # prompt_type
     parser.add_argument("--config_yaml", type=str)
     args = parser.parse_args()
     config = read_yaml(os.path.join(MAIN_PATH, args.config_yaml))
     
-    args = vars(args)  # args提供支持最简单的方法
+    args = vars(args)
     for config_name, configs in config.items():
         if config_name == "General":
             for key, val in configs.items():
                 args[key] = val
     args = Namespace(**args)
-    # import pdb;pdb.set_trace()
+
     dataset_path = os.path.join(MAIN_PATH, args.eval_dataset_path, args.input_file)
-    output_json_dir = os.path.join(MAIN_PATH, args.output_dir.format_map(dict(model_name=args.model_name)))
-    # now_time = datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
-    output_json_file = os.path.join(output_json_dir, f"eval_{args.dataset}_result.json")
+    output_json_dir = os.path.join(MAIN_PATH, args.output_dir)
+    now_time = datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
+    output_json_file = os.path.join(output_json_dir, f"{args.dataset}_{args.model_name}_{args.prompt_type}_{now_time}.json")
 
     eval(args, dataset_path, output_json_file)
