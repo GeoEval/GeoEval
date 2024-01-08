@@ -22,6 +22,7 @@ def count(args):
     knowledge_point = {"other": 0}
     geometry = {"other": 0}
     problem_length = {20: 0, 40: 0, 60: 0, 80: 0, 100: 0, 200: 0}
+    datasets = set()
     for prob_id, instance in predictions.items():
         if instance["formal_knowledge_point"] != None:
             for f_k_p in instance["formal_knowledge_point"]:
@@ -68,6 +69,8 @@ def count(args):
             problem_length[100] +=1
         else:
             problem_length[200] +=1
+        
+        datasets.add(instance["dataset_name"])
             
         # if prob_len not in problem_length:
         #     problem_length[prob_len] = 1
@@ -77,7 +80,8 @@ def count(args):
     # print(formal_knowledge_point, end="\n\n")
     # print(knowledge_point, end="\n\n")
     # print(geometry)
-    print(sorted(problem_length.items(), key=lambda x: x[0]))
+    # print(sorted(problem_length.items(), key=lambda x: x[0]))
+    print(datasets)
 
 class AutomaticMetrics:
     
@@ -135,6 +139,15 @@ class AutomaticMetrics:
                 "<=120": AverageMeter(),
                 "<=160": AverageMeter(),
                 ">160": AverageMeter(),
+            }
+        elif tag == "dataset":
+            return {
+                "MATH-Geometry": AverageMeter(),
+                "GeometryQA": AverageMeter(),
+                "GeoQA+": AverageMeter(),
+                "PGPS9K": AverageMeter(),
+                "UniGeo": AverageMeter(),
+                "MathQA": AverageMeter()
             }
     
     def get_golden_pred_val(self, instance):
@@ -252,6 +265,17 @@ class AutomaticMetrics:
                 diagram_length_metrics[">160"].update(val)
     
         return problem_length_metircs, diagram_length_metrics
+    
+    def calculate_dataset(self, predictions):
+        dataset_metrics = self._initialize("dataset")
+        for prob_id, instance in predictions.items():
+            answer_val, extract = self.get_golden_pred_val(instance)
+            
+            val = 1 if safe_equal(extract, answer_val) else 0
+
+            dataset_metrics[instance["dataset_name"]].update(val)
+        
+        return dataset_metrics
  
     def __call__(self):
         res = {}
@@ -266,6 +290,9 @@ class AutomaticMetrics:
         
         if "problem_length" in self.tag:
             res["problem_length"], res["diagram_length"] = self.calculate_problem_diagram_length(self.predictions)
+        
+        if "dataset" in self.tag:
+            res["dataset"] = self.calculate_dataset(self.predictions)
         
         self.output(res)
 
@@ -284,5 +311,5 @@ if __name__ == "__main__":
     
     # count(args)
     
-    evaluate = AutomaticMetrics(args.path, "gpt35-turbo", ["subjects", "semantic", "external_knowledge", "problem_length"])
+    evaluate = AutomaticMetrics(args.path, "gpt35-turbo", ["subjects", "semantic", "external_knowledge", "problem_length", "dataset"])
     evaluate()
