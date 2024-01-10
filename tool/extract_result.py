@@ -10,6 +10,8 @@ sys.path.append('../GeoEval')
 from tool.util import read_json
 from tool.util import save_json
 # load demo 
+
+
 from prompt.ext_prompt import ext_prompt
 from gpt_tool import get_chat_reponse
 
