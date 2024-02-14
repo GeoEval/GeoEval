@@ -17,6 +17,10 @@ Code for the Paper "GeoEval: Benchmark for Evaluating LLMs and Multi-Modal Model
 
 This project comprises a LLM evaluation of Geometry Problem Solving methods and the construction of comprehensive datasets. The aim is to advance the field of solving geometry problems. The project is focused on the construction of datasets in the field of geometry problem solving and to provide a comprehensive evaluation of current large language models.
 
+# DataSet Download
+
+Our Open Dataset version will come soon.
+
 ## About GeoEval
 The GeoEval benchmark is specifically designed for assessing the ability of models in resolving geometric math problems. This benchmark features five characteristics: Comprehensive Variety, Varied Problems, Dual Inputs, Diverse Challenges, and Complexity Ratings.
 
@@ -64,25 +68,6 @@ __Complexity Ratings__: The benchmark includes problems of different complexity 
    - [Preprocess Data](#preprocess-data)
    
 2. [Model Evaluation](#model-evaluation)
-
-
-## Data Preparation
-
-
-### Download Initial Dataset
-
-To get started with this project, you need to download the initial dataset Contrain Geometry3K, PGPS9K, UniGeo from Google Cloud Drive[Dataset Collection](https://drive.google.com/file/d/13xWRtt_C4jpA3F8NZ3deR089I3s17_WK/view?usp=drive_link). GeoQA+ can be download from this dataset [link](https://drive.google.com/file/d/1KL4_wIzr3p8XSKMkkLgYcYwCbb0TzZ9O/view?usp=drive_link).  
-
-In addition to that, there are also some text-based datasets, including [MathQA](https://drive.google.com/file/d/11E3ALsQxEtOPVtjKxrAwN99MIhtWl4No/view?usp=drive_link), [GeometryQA](https://github.com/DoubleBite/Sequence-to-General-tree/blob/master/data/geometryQA/geometry1398.json), and the [MATH](https://drive.google.com/file/d/1t4X03JIVXl6X_GNXl8R70W_rExJ_m_xD/view?usp=sharing) dataset, for geometry portion, please download here [MATH-Geometry](https://drive.google.com/file/d/1NaSMxlHM7zyBxW7cHV8ZSXeWLeDEpTIG/view?usp=sharing). These questions require a thorough understanding of geometric concepts and knowledge to solve.
-
-### Download GeoVal-merge Dataset
-
-1. Choose the merged data from the provided Google Drive [GeoEval](https://drive.google.com/file/d/1CpoZ3bFSxJXZxJhj0fmUp4ZxcR5TUdiu/view?usp=sharing).
-2. Extract the selected data into the "LLM Eval" directory.
-3. Notably, the "select.json" file serves as the test set for GeoEval, while "train.json" corresponds to the original training sets of various data sources, and "test.json" represents the original test sets of various data sources.
-
-The backward reasoning dataset is on [GeoEval-backward-augmentation](https://drive.google.com/file/d/1Oj0z7mGbDBdBbvjP6gbmhAs1sP553Hz3/view?usp=sharing) This data is constructed using the backward-reasoning technique.
-The rephrase augmentation dataset is on [GeoEval-rephase-aug-augmentation](https://drive.google.com/file/d/1Zprrw8Q-5t9g9iiI0b_eLoAwGM06YMw1/view?usp=drive_link) This data is constructed by rewriting the question description format and rearranging the order of options. 
 
 
 ## Model Evaluation
