@@ -21,7 +21,6 @@ def create_test_prompt(demo_prompt, response):
 
 def extract_answer(response, quick_extract=False):
     # quick extraction
-    # import pdb; pdb.set_trace()
     if quick_extract: # if quick can get answer, use quick
         print("Quickly extracting answer...")
         # The answer is "text". -> "text"

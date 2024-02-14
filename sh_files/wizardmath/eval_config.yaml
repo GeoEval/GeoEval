@@ -1,18 +1,12 @@
 General:
   dataset: "GeoEval" # 随便取
   model_type: "api_model" # [api_model, opensource_model] 如果从local load weights, 那就选"opensource_model"
-<<<<<<< HEAD
-  model_name: "gpt35" # 随便, 只要和你跑的模型能对上就行, "result"文件夹保存的predicitons的文件名会包含这个"model_name"
-  eval_dataset_path: "LLM_eval/"    # 数据集的第一层文件夹位置, 是"relative directory path"
-  input_file: "dataset_merge/select.json" # 测试集文件在"eval_dataset_path"的位置, 是"relative directory path", 例如这里, 文件存在主目录的"LLM_eval/dataset_merge/all.json"中
-  output_dir: "{output_dir}/{model_name}" # predictions存的文件夹, 是"relative dir path"
-=======
-  model_name: "gpt35-turbo" # 随便, 只要和你跑的模型能对上就行, "result"文件夹保存的predicitons的文件名会包含这个"model_name"
+  model_name: "wizardmath" # 随便, 只要和你跑的模型能对上就行, "result"文件夹保存的predicitons的文件名会包含这个"model_name"
   eval_dataset_path: "LLM_eval/"    # 数据集的第一层文件夹位置, 是"relative directory path"
   input_file: "dataset_merge/select.json" # 测试集文件在"eval_dataset_path"的位置, 是"relative directory path", 例如这里, 文件存在主目录的"LLM_eval/dataset_merge/all.json"中
   output_dir: "result/{model_name}" # predictions存的文件夹, 是"relative dir path"
->>>>>>> a8f2a3d230bcc3fa5f6b27c1703b0978584fafe2
   max_seq_length: 2048 # 生成的文本最长长度
-  bsz: 1                # 测试默认batch为1, 如果设置其他数值, 肯定会出bug, 哈哈
+  bsz: 1  
+  weight_path: ""              # 测试默认batch为1, 如果设置其他数值, 肯定会出bug, 哈哈
   merge_type: "naive"   # ["naive"] 怎么把 "diagram_description", "text", "choice_list"合成一个问题, 参考"GeoEval/tool/merge_key_val.py"
   sample_number: 10     # 用于debug, 测试多少数据集就停止并保存predictions, 设置为"-1"代表跑所有的数据集

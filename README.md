@@ -30,8 +30,8 @@ In addition to that, there are also some text-based datasets, including [MathQA]
 2. Extract the selected data into the "LLM Eval" directory.
 3. Notably, the "select.json" file serves as the test set for GeoEval, while "train.json" corresponds to the original training sets of various data sources, and "test.json" represents the original test sets of various data sources.
 
-The backward reasoning dataset is on [GeoEval-backward-augmentation](https://drive.google.com/file/d/1Oj0z7mGbDBdBbvjP6gbmhAs1sP553Hz3/view?usp=sharing)
-The rephrase augmentation dataset is on [GeoEval-rephase-augmentation]()
+The backward reasoning dataset is on [GeoEval-backward-augmentation](https://drive.google.com/file/d/1Oj0z7mGbDBdBbvjP6gbmhAs1sP553Hz3/view?usp=sharing) This data is constructed using the backward-reasoning technique.
+The rephrase augmentation dataset is on [GeoEval-rephase-aug-augmentation](https://drive.google.com/file/d/1Zprrw8Q-5t9g9iiI0b_eLoAwGM06YMw1/view?usp=drive_link) This data is constructed by rewriting the question description format and rearranging the order of options. 
 
 ```
 
@@ -65,7 +65,7 @@ bash sh_files/gpt35/caculate_score.sh
 | Llama2-70B-Chat              |                            |                     |
 | Qwen-72B-Chat                |                            |                     |
 | **Code Models**              |                            |                     |
-| CodeGen2-16B                 |          15.50             |          21.40      |
+| CodeGen2-16B                 |                            |                     |
 | **Math Models**              |                            |                     |
 | WizardMath-70B               |                            |                     |
 
@@ -74,16 +74,13 @@ bash sh_files/gpt35/caculate_score.sh
 ## Caculation Prolem Results(Visual-Text Large Laugage Model)
 | Model Name          | GeoEval(multi-modal-part) | GeoEval(text-part) | 
 |:-------------------:|:----------:|:------:|
-
-| llava-v1.5-7b       | 12.8%      | 21.0%  |
+| visualglm-6b        | ---        | ---    |
+| llava-v1.5-7b       | 8.4%       | ---    |
 | llama-adapter-7b    | ---        | ---    |
 | Qwen-VL             | 9.8%       | 12.9%  |
-| mPLUG-Owl2          | 24.6%      | ---    |
+| mPLUG-Owl           | 24.6%      | ---    |
 | InstructBLIP        | 27.2%      | ---    |
 | CogVLM              | ---        | ---    | 
-| **GPT4/4V**         |            |        |
-| GPT4                | ---        | ---    |
-| CogVLM              | ---        | ---    |
 
 
 

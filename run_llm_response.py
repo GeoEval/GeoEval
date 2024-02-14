@@ -58,7 +58,10 @@ def eval_api_model(args, dataset_path, output_json_file):
         instance_id = data_iter['prob_id']
         instance    = data_iter['instance']
         for i in range(args.bsz):
+<<<<<<< HEAD
             # import pdb; pdb.set_trace()
+=======
+>>>>>>> a8f2a3d230bcc3fa5f6b27c1703b0978584fafe2
             answer_result = get_chat_reponse(model_input[i])
             instance[i]["solution"][args.model_name] = answer_result
             answer_dict[instance_id[i]] = instance[i]
