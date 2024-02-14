@@ -1,0 +1,1 @@
+bash ./ext_*.sh
