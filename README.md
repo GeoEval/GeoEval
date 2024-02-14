@@ -37,7 +37,7 @@ Comprehensive Variety: The benchmark covers a wide range of geometric topics, pr
 
 __Varied Problems__: Problems in the benchmark are varied, testing the model's ability to handle different types of geometric problems.
 
-<div style="text-align: center;">
+<div style="text-align: inline-block;">
     <div style="display: inline-block;">
         <img src="img_bench/geostat1.jpg" width="250">
     </div>
@@ -45,6 +45,7 @@ __Varied Problems__: Problems in the benchmark are varied, testing the model's a
         <img src="img_bench/geostat2.jpg" width="290">
     </div>
 </div>
+
 __Dual Inputs__: The benchmark includes both text and diagram inputs, testing the model's ability to process and integrate information from different sources.
 
 __Diverse Challenges__: The benchmark poses diverse challenges, testing the model's ability to handle complex and varied geometric problems.
