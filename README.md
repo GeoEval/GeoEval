@@ -90,17 +90,13 @@ The rephrase augmentation dataset is on [GeoEval-rephase-aug-augmentation](https
 Run the scripts under sh_files/{model} to achieve inference responsiveness, result extraction, and metric calculation for large models.
 
 ```bash
-# GeoEval Text-LLM Pipeline Example
-bash sh_files/gpt35/evaluate_general.sh
-bash sh_files/gpt35/ext_result.sh
-bash sh_files/gpt35/caculate_score.sh
-```
-
-```bash
-# GeoEval Multimodal-LLM Pipeline Example
-# To begin, you need to place a file named "eval_GeoEval_result.json" in the "result/{model_name}" directory. Then:
-bash sh_files/gpt35/ext_result.sh
-bash sh_files/gpt35/caculate_score.sh
+bash sh_files/{model_name}/evaluate_general.sh
+bash sh_files/{model_name}/ext_all.sh
+bash sh_files/{model_name}/caculate_score.sh
+bash sh_files/{model_name}/caculate_aug_score.sh
+bash sh_files/{model_name}/caculate_back_score.sh
+bash sh_files/{model_name}/caculate_solid_score.sh
+bash sh_files/{model_name}/caculate_score.sh
 ```
 
 ##  🏆 Leaderboard 🏆
