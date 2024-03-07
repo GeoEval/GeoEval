@@ -3,7 +3,7 @@ import json
 
 def get_chat_reponse(question):
     api_key = ''#
-    url = "https://ai-proxy.ksord.com/wps.openai.azure.com/openai/deployments/35/chat/completions?api-version=2023-03-15-preview"
+    url = ""
     headers = {
         "api-key": api_key,
         "Content-Type": "application/json"
