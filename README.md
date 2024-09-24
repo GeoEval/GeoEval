@@ -19,7 +19,7 @@ This project comprises a LLM evaluation of Geometry Problem Solving methods and 
 
 # DataSet Download
 
-Our Open Dataset can be found at [GeoEval](https://pan.baidu.com/s/1t-VJZIFJS8C6fiLZP8-B8Q).
+Our Open Dataset can be found at [GeoEval](https://pan.baidu.com/share/init?surl=xqnBka5KYJwIAVd8LYVpUA&pwd=1234).
 
 ## About GeoEval
 The GeoEval benchmark is specifically designed for assessing the ability of models in resolving geometric math problems. This benchmark features five characteristics: Comprehensive Variety, Varied Problems, Dual Inputs, Diverse Challenges, and Complexity Ratings.
