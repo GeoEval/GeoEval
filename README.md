@@ -1,4 +1,4 @@
-**
+
 
 # GeoEval
 ![MathQA](https://img.shields.io/badge/Task-MathQA-red) 
@@ -19,7 +19,7 @@ This project comprises a LLM evaluation of Geometry Problem Solving methods and 
 
 # DataSet Download
 
-Our Open Dataset can be found at [GeoEval](https://pan.baidu.com/share/init?surl=xqnBka5KYJwIAVd8LYVpUA&pwd=1234).
+Our Open Dataset can be found at [GeoEval](https://pan.baidu.com/share/init?surl=xqnBka5KYJwIAVd8LYVpUA&pwd=1234). Please fill in the diagram "./GeoEval Dataset Application" Form for Academic  and send a email to get password. You can refer to [Dataset maintainer](https://nlpr.ia.ac.cn/pal/Data&Codes.html) and [Dataset Website](https://eternal8080.github.io/GeoEval.github.io/) for more infomation.
 
 ## About GeoEval
 The GeoEval benchmark is specifically designed for assessing the ability of models in resolving geometric math problems. This benchmark features five characteristics: Comprehensive Variety, Varied Problems, Dual Inputs, Diverse Challenges, and Complexity Ratings.
@@ -105,4 +105,3 @@ bash sh_files/{model_name}/caculate_score.sh
 
 
 
-**
